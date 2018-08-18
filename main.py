@@ -8,15 +8,24 @@ def inplace_change(file_path, old_string, new_string):
     with open(file_path, 'r', encoding='utf8', errors='ignore') as f:
         s = f.read()
         if old_string not in s:
-            print('"{old_string}" not found in {file_path}.'.format(**locals()))
+            # print('"{old_string}" not found in {file_path}.'.format(**locals()))
             return
 
     # Safely write the changed content, if found in the file
     with open(file_path, 'w', encoding='utf8') as f:
-        print('Changing "{old_string}" to "{new_string}" in {file_path}'.format(**locals()))
+        # print('Changing "{old_string}" to "{new_string}" in {file_path}'.format(**locals()))
         s = s.replace(old_string, new_string)
         f.write(s)
 
+
+def do_backup():
+    if not os.path.isdir(path + "/Mods/WorkshopBACKUP"):
+        print("No Backup Found: Backing up to -> " + path + "/Mods/WorkshopBACKUP")
+        shutil.copytree(path + "/Mods/Workshop", path + "/Mods/WorkshopBACKUP")
+
+    if not os.path.isdir(path + "/SavesBACKUP"):
+        print("No Backup Found: Backing up to -> " + path + "/SavesBACKUP")
+        shutil.copytree(path + "/Saves", path + "/SavesBACKUP")
 
 # Get Path
 path = None
@@ -28,15 +37,8 @@ while True:
     else:
         print("You must show the folder inside Documents named \"Tabletop Simulator\" with \"Mods\" folder inside it.")
 
-# Make Backup
-if not os.path.isdir(path+"/Mods/WorkshopBACKUP"):
-    print("No Backup Found: Backing up to -> "+ path + "/Mods/WorkshopBACKUP")
-    shutil.copytree(path + "/Mods/Workshop", path + "/Mods/WorkshopBACKUP")
 
-if not os.path.isdir(path+"/SavesBACKUP"):
-    print("No Backup Found: Backing up to -> "+ path + "/SavesBACKUP")
-    shutil.copytree(path + "/Saves", path + "/SavesBACKUP")
-
+do_backup()
 
 # Replace http imgur and pastebin links to https
 json_files = [pos_json for pos_json in os.listdir(path+"/Mods/Workshop") if pos_json.endswith('.json')]
@@ -55,3 +57,39 @@ for file in json_files:
 
 
 # TODO also rename already downloaded files
+
+path_images = path+"/Mods/Images/"
+
+for filename in os.listdir(path_images):
+
+    dst = filename
+    dst = dst.replace("httpimgurcom","httpsimgurcom")
+    dst = dst.replace("httppastebincom","httpsiimgurcom")
+    dst = dst.replace("httpiimgurcom","httpsiimgurcom")
+
+    src = path_images + filename
+    dst = path_images + dst
+
+    if src != dst:
+        print(src)
+        print(dst)
+        os.rename(src, dst)
+
+
+path_models = path+"/Mods/Models/"
+
+for filename in os.listdir(path_models):
+
+    dst = filename
+    dst = dst.replace("httpimgurcom","httpsimgurcom")
+    dst = dst.replace("httppastebincom","httpsiimgurcom")
+    dst = dst.replace("httpiimgurcom","httpsiimgurcom")
+
+    src = path_models + filename
+    dst = path_models + dst
+
+    if src != dst:
+        print(src)
+        print(dst)
+        os.rename(src, dst)
+
