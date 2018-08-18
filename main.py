@@ -5,14 +5,8 @@ import shutil
 
 
 def get_root_path():
-    path = None
+    path = os.path.expanduser("~/Documents/My Games/Tabletop Simulato")
     while True:
-        root = Tk()
-        root.withdraw()
-        path = filedialog.askdirectory(
-            initialdir='~/Documents/My Games/Tabletop Simulator',
-            title='Choose root of Tabletop Simulator Mods folder.'
-        )
         if os.path.isdir(path + "/Mods"):
             break
         elif path == "":
@@ -23,6 +17,13 @@ def get_root_path():
                 "You must show the folder inside Documents "
                 "named \"Tabletop Simulator\" with \"Mods\" folder inside it."
             )
+
+        root = Tk()
+        root.withdraw()
+        path = filedialog.askdirectory(
+            initialdir='~/Documents/My Games/Tabletop Simulator',
+            title='Choose root of Tabletop Simulator Mods folder.'
+        )
     return path
 
 
