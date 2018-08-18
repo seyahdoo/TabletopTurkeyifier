@@ -19,7 +19,10 @@ def get_root_path():
             print("No folder selected, exiting program.")
             exit(0)
         else:
-            print("You must show the folder inside Documents named \"Tabletop Simulator\" with \"Mods\" folder inside it.")
+            print(
+                "You must show the folder inside Documents "
+                "named \"Tabletop Simulator\" with \"Mods\" folder inside it."
+            )
     return path
 
 
