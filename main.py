@@ -1,3 +1,4 @@
+from tkinter import Tk
 from tkinter import filedialog
 import os
 import shutil
@@ -6,12 +7,16 @@ import shutil
 def get_root_path():
     path = None
     while True:
-        path = filedialog.askdirectory(initialdir='~/Documents/My Games/Tabletop Simulator')
+        root = Tk()
+        root.withdraw()
+        path = filedialog.askdirectory(initialdir='~/Documents/My Games/Tabletop Simulator',title='Choose root of Tabletop Simulator Mods folder.')
         if os.path.isdir(path + "/Mods"):
             break
+        elif path == "":
+            print("No folder selected, exiting program.")
+            exit(0)
         else:
-            print(
-                "You must show the folder inside Documents named \"Tabletop Simulator\" with \"Mods\" folder inside it.")
+            print("You must show the folder inside Documents named \"Tabletop Simulator\" with \"Mods\" folder inside it.")
     return path
 
 
@@ -57,15 +62,23 @@ def rename_downloaded_files(file_path):
 
 if __name__ == "__main__":
 
+    print("Getting root mods path")
     root_path = get_root_path()
+    print("Got root mods path")
 
+    print("Backing up intial data")
     do_backup(root_path + "/Mods/Workshop")
     do_backup(root_path + "/Saves")
 
+    print("Turkeyifying json mod files")
     replace_mod_files(root_path + "/Mods/Workshop/")
     replace_mod_files(root_path + "/Saves/")
 
+    print("Fixing previously downloaded Image and Model cache")
     rename_downloaded_files(root_path + "/Mods/Images/")
     rename_downloaded_files(root_path + "/Mods/Models/")
 
+    print("DONE!")
+
+    input("Press Enter to continue...")
 
