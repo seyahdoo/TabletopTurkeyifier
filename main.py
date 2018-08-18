@@ -9,7 +9,10 @@ def get_root_path():
     while True:
         root = Tk()
         root.withdraw()
-        path = filedialog.askdirectory(initialdir='~/Documents/My Games/Tabletop Simulator',title='Choose root of Tabletop Simulator Mods folder.')
+        path = filedialog.askdirectory(
+            initialdir='~/Documents/My Games/Tabletop Simulator',
+            title='Choose root of Tabletop Simulator Mods folder.'
+        )
         if os.path.isdir(path + "/Mods"):
             break
         elif path == "":
