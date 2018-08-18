@@ -5,7 +5,7 @@ import shutil
 
 
 def get_root_path():
-    path = os.path.expanduser("~/Documents/My Games/Tabletop Simulato")
+    path = os.path.expanduser("~/Documents/My Games/Tabletop Simulator")
     while True:
         if os.path.isdir(path + "/Mods"):
             break
