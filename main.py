@@ -52,3 +52,6 @@ for file in json_files:
     inplace_change(path+"/Saves/"+file, "http://imgur.com", "https://imgur.com")
     inplace_change(path+"/Saves/"+file, "http://i.imgur.com", "https://i.imgur.com")
     inplace_change(path+"/Saves/"+file, "http://pastebin.com", "https://pastebin.com")
+
+
+# TODO also rename already downloaded files
