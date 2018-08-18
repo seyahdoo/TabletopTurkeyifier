@@ -18,18 +18,7 @@ def inplace_change(file_path, old_string, new_string):
         f.write(s)
 
 
-def do_backup():
-    if not os.path.isdir(path + "/Mods/WorkshopBACKUP"):
-        print("No Backup Found: Backing up to -> " + path + "/Mods/WorkshopBACKUP")
-        shutil.copytree(path + "/Mods/Workshop", path + "/Mods/WorkshopBACKUP")
-
-    if not os.path.isdir(path + "/SavesBACKUP"):
-        print("No Backup Found: Backing up to -> " + path + "/SavesBACKUP")
-        shutil.copytree(path + "/Saves", path + "/SavesBACKUP")
-
-
-if __name__ == "__main__":
-    # Get Path
+def get_path():
     path = None
 
     while True:
@@ -40,8 +29,20 @@ if __name__ == "__main__":
             print(
                 "You must show the folder inside Documents named \"Tabletop Simulator\" with \"Mods\" folder inside it.")
 
-    do_backup()
+    return path
 
+
+def do_backup(path):
+    if not os.path.isdir(path + "/Mods/WorkshopBACKUP"):
+        print("No Backup Found: Backing up to -> " + path + "/Mods/WorkshopBACKUP")
+        shutil.copytree(path + "/Mods/Workshop", path + "/Mods/WorkshopBACKUP")
+
+    if not os.path.isdir(path + "/SavesBACKUP"):
+        print("No Backup Found: Backing up to -> " + path + "/SavesBACKUP")
+        shutil.copytree(path + "/Saves", path + "/SavesBACKUP")
+
+
+def replace_mod_files(path):
     # Replace http imgur and pastebin links to https
     json_files = [pos_json for pos_json in os.listdir(path + "/Mods/Workshop") if pos_json.endswith('.json')]
 
@@ -57,8 +58,8 @@ if __name__ == "__main__":
         inplace_change(path + "/Saves/" + file, "http://i.imgur.com", "https://i.imgur.com")
         inplace_change(path + "/Saves/" + file, "http://pastebin.com", "https://pastebin.com")
 
-    # TODO also rename already downloaded files
 
+def rename_downloaded_files(path):
     path_images = path + "/Mods/Images/"
 
     for filename in os.listdir(path_images):
@@ -92,3 +93,14 @@ if __name__ == "__main__":
             print(src)
             print(dst)
             os.rename(src, dst)
+
+
+if __name__ == "__main__":
+
+    path = get_path()
+
+    do_backup(path)
+
+    replace_mod_files(path)
+
+    rename_downloaded_files(path)
