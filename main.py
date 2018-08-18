@@ -4,9 +4,7 @@ import shutil
 
 
 def get_root_path():
-
     path = None
-
     while True:
         path = filedialog.askdirectory(initialdir='~/Documents/My Games/Tabletop Simulator')
         if os.path.isdir(path + "/Mods"):
@@ -14,7 +12,6 @@ def get_root_path():
         else:
             print(
                 "You must show the folder inside Documents named \"Tabletop Simulator\" with \"Mods\" folder inside it.")
-
     return path
 
 
@@ -25,12 +22,10 @@ def do_backup(file_path):
 
 
 def inplace_change(file_path, old_string, new_string):
-
     with open(file_path, 'r', encoding='utf8', errors='ignore') as f:
         s = f.read()
         if old_string not in s:
             return
-
     with open(file_path, 'w', encoding='utf8') as f:
         s = s.replace(old_string, new_string)
         f.write(s)
@@ -39,7 +34,6 @@ def inplace_change(file_path, old_string, new_string):
 def replace_mod_files(file_path):
     # Replace http imgur and pastebin links to https
     json_files = [pos_json for pos_json in os.listdir(file_path) if pos_json.endswith('.json')]
-
     for file_name in json_files:
         inplace_change(file_path + file_name, "http://imgur.com", "https://imgur.com")
         inplace_change(file_path + file_name, "http://i.imgur.com", "https://i.imgur.com")
@@ -47,9 +41,7 @@ def replace_mod_files(file_path):
 
 
 def rename_downloaded_files(file_path):
-
     for filename in os.listdir(file_path):
-
         dst = filename
         dst = dst.replace("httpimgurcom", "httpsimgurcom")
         dst = dst.replace("httppastebincom", "httpsiimgurcom")
