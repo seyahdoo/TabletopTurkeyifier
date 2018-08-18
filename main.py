@@ -27,69 +27,68 @@ def do_backup():
         print("No Backup Found: Backing up to -> " + path + "/SavesBACKUP")
         shutil.copytree(path + "/Saves", path + "/SavesBACKUP")
 
-# Get Path
-path = None
 
-while True:
-    path = filedialog.askdirectory(initialdir='~/Documents/My Games/Tabletop Simulator')
-    if os.path.isdir(path+"/Mods"):
-        break
-    else:
-        print("You must show the folder inside Documents named \"Tabletop Simulator\" with \"Mods\" folder inside it.")
+if __name__ == "__main__":
+    # Get Path
+    path = None
 
+    while True:
+        path = filedialog.askdirectory(initialdir='~/Documents/My Games/Tabletop Simulator')
+        if os.path.isdir(path + "/Mods"):
+            break
+        else:
+            print(
+                "You must show the folder inside Documents named \"Tabletop Simulator\" with \"Mods\" folder inside it.")
 
-do_backup()
+    do_backup()
 
-# Replace http imgur and pastebin links to https
-json_files = [pos_json for pos_json in os.listdir(path+"/Mods/Workshop") if pos_json.endswith('.json')]
+    # Replace http imgur and pastebin links to https
+    json_files = [pos_json for pos_json in os.listdir(path + "/Mods/Workshop") if pos_json.endswith('.json')]
 
-for file in json_files:
-    inplace_change(path+"/Mods/Workshop/"+file, "http://imgur.com", "https://imgur.com")
-    inplace_change(path+"/Mods/Workshop/"+file, "http://i.imgur.com", "https://i.imgur.com")
-    inplace_change(path+"/Mods/Workshop/"+file, "http://pastebin.com", "https://pastebin.com")
+    for file in json_files:
+        inplace_change(path + "/Mods/Workshop/" + file, "http://imgur.com", "https://imgur.com")
+        inplace_change(path + "/Mods/Workshop/" + file, "http://i.imgur.com", "https://i.imgur.com")
+        inplace_change(path + "/Mods/Workshop/" + file, "http://pastebin.com", "https://pastebin.com")
 
-json_files = [pos_json for pos_json in os.listdir(path+"/Saves") if pos_json.endswith('.json')]
+    json_files = [pos_json for pos_json in os.listdir(path + "/Saves") if pos_json.endswith('.json')]
 
-for file in json_files:
-    inplace_change(path+"/Saves/"+file, "http://imgur.com", "https://imgur.com")
-    inplace_change(path+"/Saves/"+file, "http://i.imgur.com", "https://i.imgur.com")
-    inplace_change(path+"/Saves/"+file, "http://pastebin.com", "https://pastebin.com")
+    for file in json_files:
+        inplace_change(path + "/Saves/" + file, "http://imgur.com", "https://imgur.com")
+        inplace_change(path + "/Saves/" + file, "http://i.imgur.com", "https://i.imgur.com")
+        inplace_change(path + "/Saves/" + file, "http://pastebin.com", "https://pastebin.com")
 
+    # TODO also rename already downloaded files
 
-# TODO also rename already downloaded files
+    path_images = path + "/Mods/Images/"
 
-path_images = path+"/Mods/Images/"
+    for filename in os.listdir(path_images):
 
-for filename in os.listdir(path_images):
+        dst = filename
+        dst = dst.replace("httpimgurcom", "httpsimgurcom")
+        dst = dst.replace("httppastebincom", "httpsiimgurcom")
+        dst = dst.replace("httpiimgurcom", "httpsiimgurcom")
 
-    dst = filename
-    dst = dst.replace("httpimgurcom","httpsimgurcom")
-    dst = dst.replace("httppastebincom","httpsiimgurcom")
-    dst = dst.replace("httpiimgurcom","httpsiimgurcom")
+        src = path_images + filename
+        dst = path_images + dst
 
-    src = path_images + filename
-    dst = path_images + dst
+        if src != dst:
+            print(src)
+            print(dst)
+            os.rename(src, dst)
 
-    if src != dst:
-        print(src)
-        print(dst)
-        os.rename(src, dst)
+    path_models = path + "/Mods/Models/"
 
+    for filename in os.listdir(path_models):
 
-path_models = path+"/Mods/Models/"
+        dst = filename
+        dst = dst.replace("httpimgurcom", "httpsimgurcom")
+        dst = dst.replace("httppastebincom", "httpsiimgurcom")
+        dst = dst.replace("httpiimgurcom", "httpsiimgurcom")
 
-for filename in os.listdir(path_models):
+        src = path_models + filename
+        dst = path_models + dst
 
-    dst = filename
-    dst = dst.replace("httpimgurcom","httpsimgurcom")
-    dst = dst.replace("httppastebincom","httpsiimgurcom")
-    dst = dst.replace("httpiimgurcom","httpsiimgurcom")
-
-    src = path_models + filename
-    dst = path_models + dst
-
-    if src != dst:
-        print(src)
-        print(dst)
-        os.rename(src, dst)
-
+        if src != dst:
+            print(src)
+            print(dst)
+            os.rename(src, dst)
