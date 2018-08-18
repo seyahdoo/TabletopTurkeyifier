@@ -4,6 +4,7 @@ import shutil
 
 
 def get_path():
+
     path = None
 
     while True:
@@ -24,16 +25,13 @@ def do_backup(path):
 
 
 def inplace_change(file_path, old_string, new_string):
-    # Safely read the input filename using 'with'
+
     with open(file_path, 'r', encoding='utf8', errors='ignore') as f:
         s = f.read()
         if old_string not in s:
-            # print('"{old_string}" not found in {file_path}.'.format(**locals()))
             return
 
-    # Safely write the changed content, if found in the file
     with open(file_path, 'w', encoding='utf8') as f:
-        # print('Changing "{old_string}" to "{new_string}" in {file_path}'.format(**locals()))
         s = s.replace(old_string, new_string)
         f.write(s)
 
@@ -61,9 +59,8 @@ def rename_downloaded_files(path):
         dst = path + dst
 
         if src != dst:
-            print(src)
-            print(dst)
-            os.rename(src, dst)
+            if not os.path.isfile(dst):
+                os.rename(src, dst)
 
 
 if __name__ == "__main__":
