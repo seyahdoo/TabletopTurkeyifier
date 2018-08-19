@@ -47,17 +47,17 @@ def replace_mod_files(file_path):
     # Replace http imgur and pastebin links to https
     json_files = [pos_json for pos_json in os.listdir(file_path) if pos_json.endswith('.json')]
     for file_name in json_files:
-        inplace_change(file_path + file_name, "http://imgur.com", "https://imgur.com")
-        inplace_change(file_path + file_name, "http://i.imgur.com", "https://i.imgur.com")
+        inplace_change(file_path + file_name, "http://imgur.com", "http://filmot.org")
+        inplace_change(file_path + file_name, "http://i.imgur.com", "http://i.filmot.org")
         inplace_change(file_path + file_name, "http://pastebin.com", "https://pastebin.com")
 
 
 def rename_downloaded_files(file_path):
     for filename in os.listdir(file_path):
         dst = filename
-        dst = dst.replace("httpimgurcom", "httpsimgurcom")
-        dst = dst.replace("httppastebincom", "httpsiimgurcom")
-        dst = dst.replace("httpiimgurcom", "httpsiimgurcom")
+        dst = dst.replace("httpimgurcom", "httpfilmotorg")
+        dst = dst.replace("httpiimgurcom", "httpifilmotorg")
+        dst = dst.replace("httppastebincom", "httpspastebincom")
 
         src = file_path + filename
         dst = file_path + dst
