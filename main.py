@@ -2,6 +2,7 @@ from tkinter import Tk
 from tkinter import filedialog
 import os
 import shutil
+import sys, time, msvcrt
 
 
 proxies = {
@@ -62,6 +63,10 @@ def replace_mod_files(file_path):
         for original, proxy in proxies.items():
             inplace_change(file_path + file_name, original, proxy)
 
+    subfolders = [f.path for f in os.scandir(file_path) if f.is_dir()]
+    for subfolder in subfolders:
+        replace_mod_files(subfolder + "\\")
+
 
 def rename_downloaded_files(file_path):
     for filename in os.listdir(file_path):
@@ -75,6 +80,26 @@ def rename_downloaded_files(file_path):
         if src != dst:
             if not os.path.isfile(dst):
                 os.rename(src, dst)
+
+
+def wait_enter_or_seconds( caption, timeout = 5):
+
+    start_time = time.time()
+    sys.stdout.write('%s'%(caption))
+    sys.stdout.flush()
+    input = ''
+    while True:
+        if msvcrt.kbhit():
+            byte_arr = msvcrt.getche()
+            if ord(byte_arr) == 13: # enter_key
+                break
+            elif ord(byte_arr) >= 32:  # space_char
+                input += "".join(map(chr, byte_arr))
+        if len(input) == 0 and (time.time() - start_time) > timeout:
+            break
+
+    print('')  # needed to move to next line
+    return input
 
 
 if __name__ == "__main__":
@@ -97,5 +122,5 @@ if __name__ == "__main__":
 
     print("DONE!")
 
-    input("Press Enter to continue...")
+    wait_enter_or_seconds('Press Enter to continue...', 3)
 
