@@ -14,16 +14,16 @@ proxies = {
 
 words = [
     {
-        'en': "Getting root mods path",
+        'en': "Finding mods root path",
         'tr': "Mod kök dosyası bulunuyor"
     },{
         'en': "Backing up intial data",
         'tr': "Orjinal dosyalar yedekleniyor"
     },{
-        'en': "Proxying json mod files",
+        'en': "Changing Json mod files with proxies",
         'tr': "Json mod dosyaları proxy'leriyle değiştiriliyor."
     },{
-        'en': "Fixing previously downloaded Image and Model cache",
+        'en': "Fixing previously downloaded Image and Model cache names",
         'tr': "Önceden indirilmiş Resimler ve Modellerin isimleri düzeltiliyor"
     },{
         'en': "DONE!",
