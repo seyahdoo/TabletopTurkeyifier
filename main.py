@@ -6,10 +6,12 @@ import sys, time, msvcrt
 import locale
 
 proxies = {
-    "https": "http",
     "imgur.com": "filmot.org",
     "pastebin.com": "pastebin.seyahdoo.com",
-    "cubeupload.com": "cubeupload.seyahdoo.com"
+    "cubeupload.com": "cubeupload.seyahdoo.com",
+    "https://filmot.org": "http://filmot.org",
+    "https://pastebin.seyahdoo.com": "http://pastebin.seyahdoo.com",
+    "https://cubeupload.seyahdoo.com": "http://cubeupload.seyahdoo.com"
 }
 
 words = [
@@ -20,11 +22,11 @@ words = [
         'en': "Backing up intial data",
         'tr': "Orjinal dosyalar yedekleniyor"
     },{
-        'en': "Changing Json mod files with proxies",
-        'tr': "Json mod dosyaları proxy'leriyle değiştiriliyor."
+        'en': "Changing blocked url's inside Json mod files with proxy url's",
+        'tr': "Json mod dosyaları içindeki blocklanmış url'ler proxy'leriyle değiştiriliyor."
     },{
-        'en': "Fixing previously downloaded Image and Model cache names",
-        'tr': "Önceden indirilmiş Resimler ve Modellerin isimleri düzeltiliyor"
+        'en': "Fixing previously downloaded Image and Model cache names vith SymLinks",
+        'tr': "Önceden indirilmiş Resimler ve Modellerin isimleri linklenerek düzeltiliyor"
     },{
         'en': "DONE!",
         'tr': "BİTTİ!"
@@ -91,24 +93,60 @@ def proxify_mod_files_in_folder(file_path):
     for file_name in json_files:
         for original, proxy in proxies.items():
             replace_string_inside_file(file_path + file_name, original, proxy)
-
     subfolders = [f.path for f in os.scandir(file_path) if f.is_dir()]
     for subfolder in subfolders:
         proxify_mod_files_in_folder(subfolder + "\\")
 
+def is_proxy_or_original(string):
+    for original, proxy in proxies.items():
+        if original in string or get_de_specialized_string(original) in string:
+            return "original"
+        if proxy in string or get_de_specialized_string(proxy) in string:
+            return "proxy"
+    return "none"
 
-def rename_already_downloaded_files(file_path):
+
+def get_proxy_from_original_nonspecial(string):
+    r = string
+    for original, proxy in proxies.items():
+        r = r.replace(get_de_specialized_string(original), get_de_specialized_string(proxy))
+    return r
+
+def get_original_from_proxy_nonspecial(string):
+    r = string
+    for original, proxy in proxies.items():
+        r = r.replace(get_de_specialized_string(proxy), get_de_specialized_string(original))
+    return r
+
+def sym_link_already_downloaded_files(file_path):
+    # if both files is real, delete proxy file
+    # if only proxy file is real, move file original position
+    # create sym link for original file to proxy file
     for filename in os.listdir(file_path):
-        dst = filename
-        for original, proxy in proxies.items():
-            dst = dst.replace(get_de_specialized_string(original), get_de_specialized_string(proxy))
+        if (not os.path.islink(file_path + filename)) and (is_proxy_or_original(filename) != "none"):
+            # if proxy, delete original
+            original_name = None
+            proxy_name = None
+            if is_proxy_or_original(filename) == "proxy":
+                proxy_name = filename
+                original_name = get_original_from_proxy_nonspecial(filename)
+                if os.path.isfile(file_path + original_name):
+                    os.remove(file_path + original_name)
+                os.rename(file_path + proxy_name, file_path + original_name)
 
-        src = file_path + filename
-        dst = file_path + dst
+            elif is_proxy_or_original(filename) == "original":
+                original_name = filename
+                proxy_name = get_proxy_from_original_nonspecial(filename)
+                # if proxy file exists, delete it and link it
+                if os.path.isfile(file_path + proxy_name):
+                    os.remove(file_path + proxy_name)
 
-        if src != dst:
-            if not os.path.isfile(dst):
-                os.rename(src, dst)
+            # now only original file exists
+            # link original to proxy
+            os.symlink(file_path + original_name, file_path + proxy_name)
+        elif os.path.islink(file_path + filename):
+            if not os.path.exists(os.readlink(file_path + filename)):
+                os.remove(file_path + filename)
 
 
 def wait_enter_or_seconds(caption, timeout = 5):
@@ -139,7 +177,7 @@ if __name__ == "__main__":
     print("##########################################")
     print("##########################################")
     print("####                                  ####")
-    print("####    TABLETOP TURKEYIFIER v1.0.4   ####")
+    print("####    TABLETOP TURKEYIFIER v1.1.0   ####")
     print("####                                  ####")
     print("####           created by seyahdoo    ####")
     print("####                                  ####")
@@ -164,8 +202,8 @@ if __name__ == "__main__":
 
     # Fixing previously downloaded Image and Model cache
     print(get_localized_string(lang,3))
-    rename_already_downloaded_files(root_path + "/Mods/Images/")
-    rename_already_downloaded_files(root_path + "/Mods/Models/")
+    sym_link_already_downloaded_files(root_path + "/Mods/Images/")
+    sym_link_already_downloaded_files(root_path + "/Mods/Models/")
 
     # DONE!
     print(get_localized_string(lang,4))
