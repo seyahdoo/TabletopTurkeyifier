@@ -5,9 +5,10 @@ import shutil
 
 
 proxies = {
-    "http://imgur.com": "http://filmot.org",
-    "http://i.imgur.com": "http://i.filmot.org",
-    "http://pastebin.com": "https://pastebin.com"
+    "https": "http",
+    "imgur.com": "filmot.org",
+    "pastebin.com": "pastebin.seyahdoo.com",
+    "cubeupload.com": "cubeupload.seyahdoo.com"
 }
 
 
