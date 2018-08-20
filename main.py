@@ -135,6 +135,19 @@ if __name__ == "__main__":
 
     lang = locale.getdefaultlocale()[0].split('_')[0]
 
+    # intro
+    print("##########################################")
+    print("##########################################")
+    print("####                                  ####")
+    print("####    TABLETOP TURKEYIFIER v1.0.4   ####")
+    print("####                                  ####")
+    print("####           created by seyahdoo    ####")
+    print("####                                  ####")
+    print("##########################################")
+    print("##########################################")
+    print()
+    print()
+
     # Getting root mods path
     print(get_localized_string(lang,0))
     root_path = get_mods_root_path()
