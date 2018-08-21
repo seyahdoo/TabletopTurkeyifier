@@ -2,8 +2,15 @@ from tkinter import Tk
 from tkinter import filedialog
 import os
 import shutil
-import sys, time, msvcrt
+import sys
+import time
+import msvcrt
 import locale
+import json
+import requests
+import subprocess
+
+version = "1.2.0"
 
 proxies = {
     "imgur.com": "filmot.org",
@@ -44,9 +51,11 @@ def get_localized_string(locale, string_no):
         return words[string_no]['tr']
     else:
         return words[string_no]['en']
+    return
 
 
 def get_de_specialized_string(string):
+
     return ''.join(e for e in string if e.isalnum())
 
 
@@ -56,9 +65,11 @@ def get_mods_root_path():
         if os.path.isdir(path + "/Mods"):
             break
         elif path == "":
+            # TODO localize
             print("No folder selected, exiting program.")
             exit(0)
         else:
+            # TODO localize
             print(
                 "You must show the folder inside Documents "
                 "named \"Tabletop Simulator\" with \"Mods\" folder inside it."
@@ -66,6 +77,7 @@ def get_mods_root_path():
 
         root = Tk()
         root.withdraw()
+        # TODO localize
         path = filedialog.askdirectory(
             initialdir=path,
             title='Choose root of Tabletop Simulator Mods folder.'
@@ -77,6 +89,7 @@ def do_backup_folder(file_path):
     if not os.path.isdir(file_path + "BACKUP"):
         print("No Backup Found: Backing up to -> " + file_path + "BACKUP")
         shutil.copytree(file_path, file_path + "BACKUP")
+    return
 
 
 def replace_string_inside_file(file_path, old_string, new_string):
@@ -87,6 +100,7 @@ def replace_string_inside_file(file_path, old_string, new_string):
     with open(file_path, 'w', encoding='utf8') as f:
         s = s.replace(old_string, new_string)
         f.write(s)
+    return
 
 
 def proxify_mod_files_in_folder(file_path):
@@ -98,6 +112,8 @@ def proxify_mod_files_in_folder(file_path):
     subfolders = [f.path for f in os.scandir(file_path) if f.is_dir()]
     for subfolder in subfolders:
         proxify_mod_files_in_folder(subfolder + "\\")
+    return
+
 
 def is_proxy_or_original(string):
     for original, proxy in proxies.items():
@@ -114,11 +130,13 @@ def get_proxy_from_original_nonspecial(string):
         r = r.replace(get_de_specialized_string(original), get_de_specialized_string(proxy))
     return r
 
+
 def get_original_from_proxy_nonspecial(string):
     r = string
     for original, proxy in proxies.items():
         r = r.replace(get_de_specialized_string(proxy), get_de_specialized_string(original))
     return r
+
 
 def sym_link_already_downloaded_files(file_path):
     # if both files is real, delete proxy file
@@ -149,12 +167,13 @@ def sym_link_already_downloaded_files(file_path):
         elif os.path.islink(file_path + filename):
             if not os.path.exists(os.readlink(file_path + filename)):
                 os.remove(file_path + filename)
+    return
 
 
-def wait_enter_or_seconds(caption, timeout = 5):
+def wait_enter_or_seconds(caption, timeout=5):
 
     start_time = time.time()
-    sys.stdout.write('%s'%(caption))
+    sys.stdout.write('%s' % caption)
     sys.stdout.flush()
     input = ''
     while True:
@@ -171,6 +190,53 @@ def wait_enter_or_seconds(caption, timeout = 5):
     return input
 
 
+def download_with_progress(url,save_path):
+
+    with open(save_path, "wb") as f:
+        print ("Downloading to %s" % save_path)
+        response = requests.get(url, stream=True)
+        total_length = response.headers.get('content-length')
+
+        if total_length is None:  # no content length header
+            f.write(response.content)
+        else:
+            dl = 0
+            total_length = int(total_length)
+            for data in response.iter_content(chunk_size=4096):
+                dl += len(data)
+                f.write(data)
+                done = int(50 * dl / total_length)
+                sys.stdout.write("\r[%s%s]" % ('=' * done, ' ' * (50 - done)))
+                sys.stdout.flush()
+    return
+
+
+def self_update():
+
+    r = requests.get('https://api.github.com/repos/seyahdoo/TabletopTurkeyifier/releases/latest')
+    if r.ok:
+        latest = json.loads(r.text or r.content)
+        if latest["tag_name"] > version:
+            print("Updating")
+            for asset in latest["assets"]:
+                print("Downloading assets")
+                print(asset["browser_download_url"])
+                download_with_progress(asset["browser_download_url"],asset["name"])
+                print("Starting new version: " + asset["name"])
+                os.startfile(asset["name"])
+                wait_enter_or_seconds("Waiting to close")
+                exit(0)
+        else:
+            # Delete old versions
+            time.sleep(1)
+            for filename in os.listdir():
+                if filename.startswith("tabletop-turkeyifier-"):
+                    if filename[-9:-4] < version:
+                        os.remove(filename)
+
+    return
+
+
 if __name__ == "__main__":
 
     lang = locale.getdefaultlocale()[0].split('_')[0]
@@ -179,7 +245,7 @@ if __name__ == "__main__":
     print("##########################################")
     print("##########################################")
     print("####                                  ####")
-    print("####    TABLETOP TURKEYIFIER v1.1.2   ####")
+    print("####    TABLETOP TURKEYIFIER v{}   ####".format(version))
     print("####                                  ####")
     print("####           created by seyahdoo    ####")
     print("####                                  ####")
@@ -188,28 +254,30 @@ if __name__ == "__main__":
     print()
     print()
 
+    self_update()
+
     # Getting root mods path
-    print(get_localized_string(lang,0))
+    print(get_localized_string(lang, 0))
     root_path = get_mods_root_path()
 
     # Backing up intial data
-    print(get_localized_string(lang,1))
+    print(get_localized_string(lang, 1))
     do_backup_folder(root_path + "/Mods/Workshop")
     do_backup_folder(root_path + "/Saves")
 
     # Proxying json mod files
-    print(get_localized_string(lang,2))
+    print(get_localized_string(lang, 2))
     proxify_mod_files_in_folder(root_path + "/Mods/Workshop/")
     proxify_mod_files_in_folder(root_path + "/Saves/")
 
     # Fixing previously downloaded Image and Model cache
-    print(get_localized_string(lang,3))
+    print(get_localized_string(lang, 3))
     sym_link_already_downloaded_files(root_path + "/Mods/Images/")
     sym_link_already_downloaded_files(root_path + "/Mods/Models/")
 
     # DONE!
-    print(get_localized_string(lang,4))
+    print(get_localized_string(lang, 4))
 
     # Press Enter to continue...
-    wait_enter_or_seconds(get_localized_string(lang,5), 3)
+    wait_enter_or_seconds(get_localized_string(lang, 5), 3)
 
