@@ -1,3 +1,5 @@
+from sys import exit
+
 from localization import get_localized_string
 from util import wait_enter_or_seconds
 from update import self_update
@@ -7,12 +9,10 @@ from proxify import proxify_mod_files_in_folder
 from link import sym_link_already_downloaded_files
 
 
-version = "1.2.0"
+version = "1.2.1"
 
 
 if __name__ == "__main__":
-
-
 
     # intro
     print("##########################################")
@@ -27,6 +27,7 @@ if __name__ == "__main__":
     print()
     print()
 
+    # Try to update self
     self_update(version)
 
     # Getting root mods path

@@ -2,6 +2,7 @@ import requests
 import json
 import os
 import time
+from sys import exit
 
 from util import download_with_progress
 
