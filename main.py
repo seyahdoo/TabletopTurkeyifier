@@ -10,6 +10,7 @@ proxies = {
     "pastebin.com": "pastebin.seyahdoo.com",
     "cubeupload.com": "cubeupload.seyahdoo.com",
     "https://filmot.org": "http://filmot.org",
+    "https://i.filmot.org": "http://i.filmot.org",
     "https://pastebin.seyahdoo.com": "http://pastebin.seyahdoo.com",
     "https://cubeupload.seyahdoo.com": "http://cubeupload.seyahdoo.com"
 }
