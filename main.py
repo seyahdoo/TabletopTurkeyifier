@@ -179,7 +179,7 @@ if __name__ == "__main__":
     print("##########################################")
     print("##########################################")
     print("####                                  ####")
-    print("####    TABLETOP TURKEYIFIER v1.1.0   ####")
+    print("####    TABLETOP TURKEYIFIER v1.1.2   ####")
     print("####                                  ####")
     print("####           created by seyahdoo    ####")
     print("####                                  ####")
