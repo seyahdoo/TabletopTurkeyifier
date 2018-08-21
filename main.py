@@ -224,14 +224,13 @@ def self_update():
                 download_with_progress(asset["browser_download_url"],asset["name"])
                 print("Starting new version: " + asset["name"])
                 os.startfile(asset["name"])
-                wait_enter_or_seconds("Waiting to close")
                 exit(0)
         else:
             # Delete old versions
-            time.sleep(1)
             for filename in os.listdir():
                 if filename.startswith("tabletop-turkeyifier-"):
                     if filename[-9:-4] < version:
+                        time.sleep(1) # let it close
                         os.remove(filename)
 
     return
