@@ -31,28 +31,28 @@ if __name__ == "__main__":
     self_update(version)
 
     # Getting root mods path
-    print(get_localized_string(0))
+    print(get_localized_string("say_find_root"))
     root_path = get_mods_root_path()
 
     # Backing up intial data
-    print(get_localized_string(1))
+    print(get_localized_string("say_backup"))
     do_backup_folder(root_path + "/Mods/Workshop")
     do_backup_folder(root_path + "/Saves")
 
     # Proxying json mod files
-    print(get_localized_string(2))
+    print(get_localized_string("say_changing_url"))
     proxify_mod_files_in_folder(root_path + "/Mods/Workshop/")
     proxify_mod_files_in_folder(root_path + "/Saves/")
 
     # Fixing previously downloaded Image and Model cache
-    print(get_localized_string(3))
+    print(get_localized_string("say_fixing_links"))
     sym_link_already_downloaded_files(root_path + "/Mods/Images/")
     sym_link_already_downloaded_files(root_path + "/Mods/Models/")
 
     # DONE!
-    print(get_localized_string(4))
+    print(get_localized_string("say_done"))
 
     # Press Enter to continue...
-    wait_enter_or_seconds(get_localized_string(5), 3)
+    wait_enter_or_seconds(get_localized_string("say_press_enter"), 3)
 
     exit(0)

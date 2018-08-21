@@ -5,6 +5,7 @@ import time
 from sys import exit
 
 from util import download_with_progress
+from localization import get_localized_string
 
 
 def self_update(version):
@@ -13,12 +14,10 @@ def self_update(version):
     if r.ok:
         latest = json.loads(r.text or r.content)
         if latest["tag_name"] > version:
-            print("Updating")
+            print(get_localized_string("say_updating"))
             for asset in latest["assets"]:
-                print("Downloading assets")
-                print(asset["browser_download_url"])
-                download_with_progress(asset["browser_download_url"],asset["name"])
-                print("Starting new version: " + asset["name"])
+                download_with_progress(asset["browser_download_url"], asset["name"])
+                print(get_localized_string("say_starting_new_version") + asset["name"])
                 os.startfile(asset["name"])
                 exit(0)
         else:
@@ -26,6 +25,6 @@ def self_update(version):
             for filename in os.listdir():
                 if filename.startswith("tabletop-turkeyifier-"):
                     if filename[-9:-4] < version:
-                        time.sleep(1) # let it close
+                        time.sleep(1)  # let it close
                         os.remove(filename)
     return

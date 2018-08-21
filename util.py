@@ -43,7 +43,7 @@ def wait_enter_or_seconds(caption, timeout=5):
 def download_with_progress(url,save_path):
 
     with open(save_path, "wb") as f:
-        print("Downloading to %s" % save_path)
+        print("Downloading %s" % save_path)
         response = requests.get(url, stream=True)
         total_length = response.headers.get('content-length')
 
