@@ -17,6 +17,7 @@ def update_app(current_version):
         return
 
     if r.ok:
+        # parse json api data
         latest_release = json.loads(r.text or r.content)
 
         # if there is a newer version

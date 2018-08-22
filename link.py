@@ -11,7 +11,7 @@ def sym_link_already_downloaded_files(file_path):
     for filename in os.listdir(file_path):
 
         # if this is not a link, and if this is a proxified file
-        if (not os.path.islink(file_path + filename)) and (is_proxy_or_original(filename) != "none"):
+        if (not os.path.islink(file_path + filename)) and (is_proxy_or_original(filename) != "unrelated"):
 
             original_name = None
             proxy_name = None
