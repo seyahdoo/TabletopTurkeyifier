@@ -1,15 +1,15 @@
 from sys import exit
 
-from localization import get_localized_string
+from localization import get_localized_string, print_localized
 from util import wait_enter_or_seconds
-from update import self_update
+from auto_update import update_app
 from path import get_mods_root_path
 from backup import do_backup_folder
 from proxify import proxify_mod_files_in_folder
 from link import sym_link_already_downloaded_files
 
 
-version = "1.2.1"
+version = "1.2.3"
 
 
 if __name__ == "__main__":
@@ -28,31 +28,31 @@ if __name__ == "__main__":
     print()
 
     # Try to update self
-    self_update(version)
+    update_app(version)
 
     # Getting root mods path
-    print(get_localized_string("say_find_root"))
+    print_localized("find_root")
     root_path = get_mods_root_path()
 
     # Backing up intial data
-    print(get_localized_string("say_backup"))
+    print_localized("backup")
     do_backup_folder(root_path + "/Mods/Workshop")
     do_backup_folder(root_path + "/Saves")
 
     # Proxying json mod files
-    print(get_localized_string("say_changing_url"))
+    print_localized("changing_url")
     proxify_mod_files_in_folder(root_path + "/Mods/Workshop/")
     proxify_mod_files_in_folder(root_path + "/Saves/")
 
     # Fixing previously downloaded Image and Model cache
-    print(get_localized_string("say_fixing_links"))
+    print_localized("fixing_links")
     sym_link_already_downloaded_files(root_path + "/Mods/Images/")
     sym_link_already_downloaded_files(root_path + "/Mods/Models/")
 
     # DONE!
-    print(get_localized_string("say_done"))
+    print_localized("done")
 
     # Press Enter to continue...
-    wait_enter_or_seconds(get_localized_string("say_press_enter"), 3)
+    wait_enter_or_seconds(get_localized_string("press_enter"), 3)
 
     exit(0)
