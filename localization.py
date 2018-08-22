@@ -41,7 +41,12 @@ words = {
     "deleting_old_ver": {
         'en': "Deleting old version",
         'tr': "Eski versiyon siliniyor"},
-
+    "problem_downloading_new_ver": {
+        'en': "there was a problem with downloading new version, continuing with older version for now",
+        'tr': "Yeni versiyonu indirmekle ilgili bir problem oluştu, şimdilik eski versiyonla devam ediliyor"},
+    "problem_checking_new_version": {
+        'en': "there was a problem with checking new version, continuing with older version for now",
+        'tr': "Yeni versiyonu kontrol etmekle ilgili bir problem oluştu, şimdilik eski versiyonla devam ediliyor"},
 }
 
 
