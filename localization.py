@@ -47,6 +47,9 @@ words = {
     "problem_checking_new_version": {
         'en': "there was a problem with checking new version, continuing with older version for now",
         'tr': "Yeni versiyonu kontrol etmekle ilgili bir problem oluştu, şimdilik eski versiyonla devam ediliyor"},
+    "local_not_found": {
+        'en': "Localization Error!!! Cannot found what to say.",
+        'tr': "Lokalizasyon Hatası!!! Ne söyleyeceğimi \"Ciddden\" bilmiyorum."},
 }
 
 
@@ -54,16 +57,10 @@ lang = locale.getdefaultlocale()[0].split('_')[0]
 
 
 def get_localized_string(string_id):
-    if lang == 'tr':
-        return words[string_id]['tr']
-    else:
-        return words[string_id]['en']
-    return
+    localizable = words.get(string_id, words.get("local_not_found"))
+    return localizable.get(lang, localizable.get("en", "Some stuff is seriously wrong dude."))
 
 
 def print_localized(string_id):
-    if lang == 'tr':
-        print(words[string_id]['tr'])
-    else:
-        print(words[string_id]['en'])
+    print(get_localized_string(string_id))
     return
