@@ -1,6 +1,6 @@
 import os
 
-from proxify import is_proxy_or_original, get_proxy_from_original_nonspecial, get_original_from_proxy_nonspecial
+from proxify import is_proxy_or_original, get_proxy_from_original_non_special, get_original_from_proxy_non_special
 
 
 def sym_link_already_downloaded_files(file_path):
@@ -19,7 +19,7 @@ def sym_link_already_downloaded_files(file_path):
             # if proxy, delete original and rename this to be original
             if is_proxy_or_original(filename) == "proxy":
                 proxy_name = filename
-                original_name = get_original_from_proxy_nonspecial(filename)
+                original_name = get_original_from_proxy_non_special(filename)
                 if os.path.isfile(file_path + original_name):
                     os.remove(file_path + original_name)
                 os.rename(file_path + proxy_name, file_path + original_name)
@@ -27,7 +27,7 @@ def sym_link_already_downloaded_files(file_path):
             # if original, delete proxy,
             elif is_proxy_or_original(filename) == "original":
                 original_name = filename
-                proxy_name = get_proxy_from_original_nonspecial(filename)
+                proxy_name = get_proxy_from_original_non_special(filename)
                 if os.path.isfile(file_path + proxy_name):
                     os.remove(file_path + proxy_name)
 

@@ -1,39 +1,59 @@
 import os
+import re
 
 from util import *
 
 proxies = {
-    "imgur.com": "filmot.org",
-    "pastebin.com": "pastebin.seyahdoo.com",
-    "cubeupload.com": "cubeupload.seyahdoo.com",
-    "https://filmot.org": "http://filmot.org",
-    "https://i.filmot.org": "http://i.filmot.org",
-    "https://pastebin.seyahdoo.com": "http://pastebin.seyahdoo.com",
-    "https://cubeupload.seyahdoo.com": "http://cubeupload.seyahdoo.com",
-    "https://u.cubeupload.seyahdoo.com": "http://u.cubeupload.seyahdoo.com"
+    "https": "http",
+    "http://imgur.com": "http://filmot.org",
+    "http://i.imgur.com": "http://i.filmot.org",
+    "http://pastebin.com": "http://pastebin.seyahdoo.com",
+    "http://cubeupload.com": "http://cubeupload.seyahdoo.com",
+    "http://u.cubeupload.com": "http://u.cubeupload.seyahdoo.com"
 }
 
+proxy_history = {}
 
-def get_proxy_from_original_nonspecial(string):
+url_expression = re.compile('(\"https?://\S*?((imgur\.com)|(pastebin\.com)|(cubeupload\.com))[^\s"]*\")')
+
+
+def calculate_proxy(original):
+    if original in proxy_history:
+        return proxy_history[original]
+
+    proxy = original
+    for o, p in proxies.items():
+        if proxy.startswith(o):
+            proxy = proxy.replace(o, p, 1)
+
+    proxy_history[original] = proxy
+
+    return proxy
+
+
+def get_proxy_from_original_non_special(string):
+    # TODO
     r = string
     for original, proxy in proxies.items():
-        r = r.replace(get_de_specialized_string(original), get_de_specialized_string(proxy))
+        r = r.replace(get_non_specialized_string(original), get_non_specialized_string(proxy))
     return r
 
 
-def get_original_from_proxy_nonspecial(string):
+def get_original_from_proxy_non_special(string):
+    # TODO
     r = string
     for original, proxy in proxies.items():
-        r = r.replace(get_de_specialized_string(proxy), get_de_specialized_string(original))
+        r = r.replace(get_non_specialized_string(proxy), get_non_specialized_string(original))
     return r
 
 
 def is_proxy_or_original(string):
+    # TODO this
     # detect if a file is proxified, original or unrelated
     for original, proxy in proxies.items():
-        if original in string or get_de_specialized_string(original) in string:
+        if original in string or get_non_specialized_string(original) in string:
             return "original"
-        if proxy in string or get_de_specialized_string(proxy) in string:
+        if proxy in string or get_non_specialized_string(proxy) in string:
             return "proxy"
     return "unrelated"
 
@@ -46,7 +66,7 @@ def proxify_mod_files_in_folder(folder_path):
     for file_name in json_files:
         file_path = folder_path + file_name
         original_modify_time = os.path.getmtime(file_path)  # capture modify time
-        replace_multiple_string_inside_file(file_path, proxies)  # proxify
+        proxify_file(file_path)
         os.utime(file_path, (original_modify_time, original_modify_time))  # restore modify time
 
     # recursively proxify sub folders
@@ -54,4 +74,21 @@ def proxify_mod_files_in_folder(folder_path):
     for sub_folder in sub_folders:
         proxify_mod_files_in_folder(sub_folder + "\\")
 
+    return
+
+
+def proxify_file(file_path):
+    with open(file_path, 'r', encoding='utf8', errors='ignore') as f:
+        s = f.read()
+        proxiable_list = url_expression.findall(s)
+        if len(proxiable_list) > 0:
+            for r in proxiable_list:
+                sliced = r[0][1:-1]
+                calculate_proxy(sliced)
+        else:
+            return
+    with open(file_path, 'w', encoding='utf8') as f:
+        for original, proxy in proxy_history.items():
+            s = s.replace(original, proxy)
+        f.write(s)
     return

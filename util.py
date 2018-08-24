@@ -4,34 +4,7 @@ import msvcrt
 import requests
 
 
-def replace_multiple_string_inside_file(file_path, strings):
-    with open(file_path, 'r', encoding='utf8', errors='ignore') as f:
-        s = f.read()
-        exists = False
-        for original, target in strings.items():
-            if original in s:
-                exists = True
-        if not exists:
-            return
-    with open(file_path, 'w', encoding='utf8') as f:
-        for original, target in strings.items():
-            s = s.replace(original, target)
-        f.write(s)
-    return
-
-
-def replace_string_inside_file(file_path, old_string, new_string):
-    with open(file_path, 'r', encoding='utf8', errors='ignore') as f:
-        s = f.read()
-        if old_string not in s:
-            return
-    with open(file_path, 'w', encoding='utf8') as f:
-        s = s.replace(old_string, new_string)
-        f.write(s)
-    return
-
-
-def get_de_specialized_string(string):
+def get_non_specialized_string(string):
 
     return ''.join(e for e in string if e.isalnum())
 
