@@ -38,16 +38,20 @@ def is_proxy_or_original(string):
     return "unrelated"
 
 
-def proxify_mod_files_in_folder(file_path):
+def proxify_mod_files_in_folder(folder_path):
 
     # Replace blocked links with proxy links inside json files
-    json_files = [pos_json for pos_json in os.listdir(file_path) if pos_json.endswith('.json')]
+    # (without changing modify time so it wont change the order of mods inside game)
+    json_files = [pos_json for pos_json in os.listdir(folder_path) if pos_json.endswith('.json')]
     for file_name in json_files:
-        for original, proxy in proxies.items():
-            replace_string_inside_file(file_path + file_name, original, proxy)
+        file_path = folder_path + file_name
+        original_modify_time = os.path.getmtime(file_path)  # capture modify time
+        for original, proxy in proxies.items():  # for each proxy
+            replace_string_inside_file(file_path, original, proxy)  # proxify
+        os.utime(file_path, (original_modify_time, original_modify_time))  # restore modify time
 
     # recursively proxify sub folders
-    subfolders = [f.path for f in os.scandir(file_path) if f.is_dir()]
+    subfolders = [f.path for f in os.scandir(folder_path) if f.is_dir()]
     for subfolder in subfolders:
         proxify_mod_files_in_folder(subfolder + "\\")
 
