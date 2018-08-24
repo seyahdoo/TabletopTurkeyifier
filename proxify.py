@@ -46,13 +46,12 @@ def proxify_mod_files_in_folder(folder_path):
     for file_name in json_files:
         file_path = folder_path + file_name
         original_modify_time = os.path.getmtime(file_path)  # capture modify time
-        for original, proxy in proxies.items():  # for each proxy
-            replace_string_inside_file(file_path, original, proxy)  # proxify
+        replace_multiple_string_inside_file(file_path, proxies)  # proxify
         os.utime(file_path, (original_modify_time, original_modify_time))  # restore modify time
 
     # recursively proxify sub folders
-    subfolders = [f.path for f in os.scandir(folder_path) if f.is_dir()]
-    for subfolder in subfolders:
-        proxify_mod_files_in_folder(subfolder + "\\")
+    sub_folders = [f.path for f in os.scandir(folder_path) if f.is_dir()]
+    for sub_folder in sub_folders:
+        proxify_mod_files_in_folder(sub_folder + "\\")
 
     return
