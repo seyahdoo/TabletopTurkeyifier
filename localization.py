@@ -50,6 +50,15 @@ words = {
     "local_not_found": {
         'en': "Localization Error!!! Cannot found what to say.",
         'tr': "Lokalizasyon Hatası!!! Ne söyleyeceğimi \"Ciddden\" bilmiyorum."},
+    "adding_new_proxy": {
+        'en': "Adding proxy",
+        'tr': "Proxy ekleniyor"},
+    "saving_proxy_history": {
+        'en': "Saving proxy history to -> ",
+        'tr': "Proxy geçmişi kaydediliyor -> "},
+    "loading_proxy_history": {
+        'en': "Loading proxy histoy from -> ",
+        'tr': "Proxy geçmişi yükleniyor -> "},
 }
 
 

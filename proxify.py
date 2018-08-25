@@ -3,6 +3,7 @@ import re
 import json
 
 from util import *
+from localization import get_localized_string, print_localized
 
 class Proxify:
 
@@ -42,7 +43,7 @@ class Proxify:
             print(proxy)
             return
 
-        print("Adding new proxy -> " + original + ":" + proxy)
+        print(get_localized_string("adding_new_proxy") " -> " + original + ":" + proxy)
         self.proxy_history[original] = proxy
         self.non_special_proxy_history[get_non_specialized_string(original)] = get_non_specialized_string(proxy)
 
@@ -114,7 +115,7 @@ class Proxify:
         return
 
     def save_proxy_history(self, file_path):
-        print("saving proxy history")
+        print(get_localized_string("saving_proxy_history") + file_path)
         s = json.dumps(
             {
                 "proxy_history": self.proxy_history,
@@ -127,7 +128,7 @@ class Proxify:
         return
 
     def load_proxy_history(self, file_path):
-        print("loading proxy history")
+        print(get_localized_string("loading_proxy_history") + file_path)
         s = None
         with open(file_path, 'r', encoding='utf8', errors='ignore') as f:
             s = f.read()
