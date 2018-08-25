@@ -59,6 +59,9 @@ words = {
     "loading_proxy_history": {
         'en': "Loading proxy histoy from -> ",
         'tr': "Proxy geçmişi yükleniyor -> "},
+    "history_not_found": {
+        'en': "History file not found, continuing.",
+        'tr': "Geçmiş dosyası bulunamadı, devam ediliyor."},
 }
 
 

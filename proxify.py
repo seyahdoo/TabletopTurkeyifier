@@ -17,6 +17,14 @@ class Proxify:
             "http://u.cubeupload.com": "http://u.cubeupload.seyahdoo.com"
         }
 
+        self.known_extensions = [
+            "png",
+            "jpg",
+            "jpeg",
+            "obj",
+            "unity3d"
+        ]
+
         self.proxy_history = {}
         self.non_special_proxy_history = {}
         self.url_expression = re.compile(
@@ -43,21 +51,25 @@ class Proxify:
             print(proxy)
             return
 
-        print(get_localized_string("adding_new_proxy") + " -> " + original + ":" + proxy)
+        # print(get_localized_string("adding_new_proxy") + " -> " + original + ":" + proxy)
         self.proxy_history[original] = proxy
         self.non_special_proxy_history[get_non_specialized_string(original)] = get_non_specialized_string(proxy)
 
         return proxy
 
     def get_proxy_from_original_non_special(self, string):
-        if string in self.non_special_proxy_history:
-            return self.non_special_proxy_history[string]
+        splitted = string.split('.')
+        findee = splitted[0]
+        ext = splitted[1]
+        if findee in self.non_special_proxy_history:
+            return self.non_special_proxy_history[findee] + '.' + ext
         return
 
     def get_original_from_proxy_non_special(self, string):
-        for original, proxy in self.non_special_proxy_history:
-            if proxy is string:
-                return original
+        findee = string.split('.')[0]
+        for original, proxy in self.non_special_proxy_history.items():
+            if proxy == findee:
+                return original + '.' + string.split('.')[1]
         return
 
     def is_proxy_or_original(self, string):
@@ -69,9 +81,9 @@ class Proxify:
                 return "proxy"
             return "irrelevant"
         else:
-            if string in self.non_special_proxy_history.keys():
+            if (string.split('.'))[0] in self.non_special_proxy_history.keys():
                 return "original"
-            elif string in self.non_special_proxy_history.values():
+            elif (string.split('.'))[0] in self.non_special_proxy_history.values():
                 return "proxy"
             return "irrelevant"
 
@@ -129,6 +141,10 @@ class Proxify:
 
     def load_proxy_history(self, file_path):
         print(get_localized_string("loading_proxy_history") + file_path)
+        if not os.path.isfile(file_path):
+            print_localized("history_not_found")
+            return
+
         s = None
         with open(file_path, 'r', encoding='utf8', errors='ignore') as f:
             s = f.read()
