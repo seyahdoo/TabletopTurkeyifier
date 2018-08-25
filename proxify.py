@@ -89,17 +89,22 @@ def proxify_mod_files_in_folder(folder_path):
 
 
 def proxify_file(file_path):
+    s = None
+
     with open(file_path, 'r', encoding='utf8', errors='ignore') as f:
         s = f.read()
-        proxiable_list = url_expression.findall(s)
-        if len(proxiable_list) > 0:
-            for r in proxiable_list:
-                sliced = r[0][1:-1]
-                calculate_proxy(sliced)
-        else:
-            return
+
+    proxiable_list = url_expression.findall(s)
+    if len(proxiable_list) > 0:
+        for r in proxiable_list:
+            sliced = r[0][1:-1]
+            calculate_proxy(sliced)
+    else:
+        return
+
+    for original, proxy in proxy_history.items():
+        s = s.replace(original, proxy)
+
     with open(file_path, 'w', encoding='utf8') as f:
-        for original, proxy in proxy_history.items():
-            s = s.replace(original, proxy)
         f.write(s)
     return
