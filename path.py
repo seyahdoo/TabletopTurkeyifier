@@ -8,7 +8,9 @@ from localization import get_localized_string, print_localized
 def get_mods_root_path():
     path = os.path.expanduser("~/Documents/My Games/Tabletop Simulator/")
     while True:
-        if os.path.isdir(path + "/Mods"):
+        if os.path.isdir(path + "/Mods") \
+                and os.path.isdir(path + "/Mods/Workshop") \
+                and os.path.isdir(path + "/Saves"):
             break
         elif path == "":
             print_localized("no_folder")
