@@ -43,7 +43,7 @@ class Proxify:
             print(proxy)
             return
 
-        print(get_localized_string("adding_new_proxy") " -> " + original + ":" + proxy)
+        print(get_localized_string("adding_new_proxy") + " -> " + original + ":" + proxy)
         self.proxy_history[original] = proxy
         self.non_special_proxy_history[get_non_specialized_string(original)] = get_non_specialized_string(proxy)
 
