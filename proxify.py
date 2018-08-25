@@ -14,12 +14,20 @@ proxies = {
 
 proxy_history = {}
 
+non_special_proxy_history = {}
+
 url_expression = re.compile('(\"https?://\S*?((imgur\.com)|(pastebin\.com)|(cubeupload\.com))[^\s"]*\")')
 
 
 def calculate_proxy(original):
-    if original in proxy_history:
-        return proxy_history[original]
+    if "/" not in original:
+        if original in non_special_proxy_history:
+            return non_special_proxy_history[original]
+        return
+    else:
+        if original in proxy_history:
+            return proxy_history[original]
+        pass
 
     proxy = original
     for o, p in proxies.items():
@@ -27,35 +35,38 @@ def calculate_proxy(original):
             proxy = proxy.replace(o, p, 1)
 
     proxy_history[original] = proxy
+    non_special_proxy_history[get_non_specialized_string(original)] = get_non_specialized_string(proxy)
 
     return proxy
 
 
 def get_proxy_from_original_non_special(string):
-    # TODO
-    r = string
-    for original, proxy in proxies.items():
-        r = r.replace(get_non_specialized_string(original), get_non_specialized_string(proxy))
-    return r
+    if string in non_special_proxy_history:
+        return non_special_proxy_history[string]
+    return
 
 
 def get_original_from_proxy_non_special(string):
-    # TODO
-    r = string
-    for original, proxy in proxies.items():
-        r = r.replace(get_non_specialized_string(proxy), get_non_specialized_string(original))
-    return r
+    for original, proxy in non_special_proxy_history:
+        if proxy is string:
+            return original
+    return
 
 
 def is_proxy_or_original(string):
-    # TODO this
     # detect if a file is proxified, original or unrelated
-    for original, proxy in proxies.items():
-        if original in string or get_non_specialized_string(original) in string:
+    if "/" in string:
+        if string in proxy_history.keys():
             return "original"
-        if proxy in string or get_non_specialized_string(proxy) in string:
+        elif string in proxy_history.values():
             return "proxy"
-    return "unrelated"
+        return "irrelevant"
+    else:
+        if string in non_special_proxy_history.keys():
+            return "original"
+        elif string in non_special_proxy_history.values():
+            return "proxy"
+        return "irrelevant"
 
 
 def proxify_mod_files_in_folder(folder_path):

@@ -9,7 +9,7 @@ from proxify import proxify_mod_files_in_folder
 from link import sym_link_already_downloaded_files
 
 
-version = "1.2.6"
+version = "1.3.0"
 
 
 if __name__ == "__main__":
