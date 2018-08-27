@@ -47,7 +47,6 @@ def update_app(current_version):
                 app_name = None
                 try:
                     app_name = props["StringFileInfo"]["ProductName"]
-                    print(app_name)
                 except:
                     pass
 
@@ -58,7 +57,6 @@ def update_app(current_version):
                     pass
 
                 if filename.startswith("tabletop-turkeyifier") or app_name == "Tabletop Turkeyifier":
-                    print(props)
                     if prod_ver is not None:
                         if prod_ver < current_version:
                             print_localized("deleting_old_ver")
