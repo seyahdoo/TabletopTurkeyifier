@@ -20,5 +20,7 @@ os.system("pyinstaller --onefile main.py --version-file=\"version_file_created.t
 
 os.remove("version_file_created.txt")
 
-os.remove("./dist/tabletop-turkeyifier.exe")
+if os.path.isfile("./dist/tabletop-turkeyifier.exe"):
+    os.remove("./dist/tabletop-turkeyifier.exe")
+
 os.rename("./dist/main.exe","./dist/tabletop-turkeyifier.exe")
