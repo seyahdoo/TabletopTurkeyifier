@@ -1,5 +1,6 @@
 import ctypes
 import sys
+from sys import exit
 
 
 def is_admin():
