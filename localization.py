@@ -62,6 +62,13 @@ words = {
     "history_not_found": {
         'en': "History file not found, continuing.",
         'tr': "Geçmiş dosyası bulunamadı, devam ediliyor."},
+    "require_admin_for_links": {
+        'en': "Turkeyifier requires admin rights to create symLinks.",
+        'tr': "Linkleme işleminin gerçekleşebilmesi için yönetici hakları gereklidir."},
+    "process_finished": {
+        'en': "Process has been finished.",
+        'tr': "İşlem tamamlandı."},
+
 }
 
 

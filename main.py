@@ -7,9 +7,9 @@ from path import get_mods_root_path
 from backup import do_backup_folder
 from proxify import Proxify
 from link import sym_link_already_downloaded_files
+from request_admin import admin_or_exit
 
-
-version = "1.3.2"
+version = "1.3.3"
 
 
 if __name__ == "__main__":
@@ -52,13 +52,16 @@ if __name__ == "__main__":
 
     # Fixing previously downloaded Image and Model cache
     print_localized("fixing_links")
+    print_localized("require_admin_for_links")
+    admin_or_exit(__file__)
     sym_link_already_downloaded_files(p, root_path + "/Mods/Images/")
     sym_link_already_downloaded_files(p, root_path + "/Mods/Models/")
 
     # DONE!
+    print_localized("process_finished")
     print_localized("done")
 
     # Press Enter to continue...
-    wait_enter_or_seconds(get_localized_string("press_enter"), 3)
+    input(get_localized_string("press_enter"))
 
     exit(0)
