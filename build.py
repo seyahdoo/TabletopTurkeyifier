@@ -15,7 +15,6 @@ s = s.replace("x,x,x,x", version)
 with open("version_file_created.txt", 'w', encoding='utf8') as f:
     f.write(s)
 
-# os.system("'pyinstaller --onefile main.py --version-file=\"version_file_created.txt\"'");
 os.system("pyinstaller --onefile main.py --version-file=\"version_file_created.txt\"")
 
 os.remove("version_file_created.txt")
