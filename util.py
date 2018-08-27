@@ -2,10 +2,10 @@ import sys
 import time
 import msvcrt
 import requests
+import win32api
 
 
 def get_non_specialized_string(string):
-
     return ''.join(e for e in string if e.isalnum())
 
 
@@ -48,3 +48,43 @@ def download_with_progress(url,save_path):
                 sys.stdout.write("\r[%s%s]" % ('=' * done, ' ' * (50 - done)))
                 sys.stdout.flush()
     return
+
+
+def get_file_properties(file_name):
+    """
+    Read all properties of the given file return them as a dictionary.
+    """
+    prop_names = ('Comments', 'InternalName', 'ProductName',
+                  'CompanyName', 'LegalCopyright', 'ProductVersion',
+                  'FileDescription', 'LegalTrademarks', 'PrivateBuild',
+                  'FileVersion', 'OriginalFilename', 'SpecialBuild')
+
+    props = {'FixedFileInfo': None, 'StringFileInfo': None, 'FileVersion': None}
+
+    try:
+        # backslash as parm returns dictionary of numeric info corresponding to VS_FIXEDFILEINFO struc
+        fixedInfo = win32api.GetFileVersionInfo(file_name, '\\')
+        props['FixedFileInfo'] = fixedInfo
+        props['FileVersion'] = "%d.%d.%d.%d" % (fixedInfo['FileVersionMS'] / 65536,
+                                                fixedInfo['FileVersionMS'] % 65536,
+                                                fixedInfo['FileVersionLS'] / 65536,
+                                                fixedInfo['FileVersionLS'] % 65536)
+
+        # \VarFileInfo\Translation returns list of available (language, codepage)
+        # pairs that can be used to retreive string info. We are using only the first pair.
+        lang, codepage = win32api.GetFileVersionInfo(file_name, '\\VarFileInfo\\Translation')[0]
+
+        # any other must be of the form \StringfileInfo\%04X%04X\parm_name, middle
+        # two are language/codepage pair returned from above
+
+        str_info = {}
+        for propName in prop_names:
+            str_info_path = u'\\StringFileInfo\\%04X%04X\\%s' % (lang, codepage, propName)
+            str_info[propName] = win32api.GetFileVersionInfo(file_name, str_info_path)
+
+        props['StringFileInfo'] = str_info
+    except:
+        pass
+
+    return props
+

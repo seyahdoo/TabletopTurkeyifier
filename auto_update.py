@@ -3,7 +3,7 @@ import json
 import os
 from sys import exit
 
-from util import download_with_progress
+from util import download_with_progress, get_file_properties
 from localization import print_localized
 
 
@@ -43,10 +43,34 @@ def update_app(current_version):
         else:
             # Delete old versions if exists in same folder
             for filename in os.listdir():
-                if filename.startswith("tabletop-turkeyifier-"):
-                    if filename[-9:-4] < current_version:
-                        print_localized("deleting_old_ver")
-                        with open(filename, 'w'):
-                            pass
-                        os.remove(filename)
+                props = get_file_properties(filename)
+                app_name = None
+                try:
+                    app_name = props["StringFileInfo"]["ProductName"]
+                    print(app_name)
+                except:
+                    pass
+
+                prod_ver = None
+                try:
+                    prod_ver = props["StringFileInfo"]["ProductVersion"]
+                except:
+                    pass
+
+                if filename.startswith("tabletop-turkeyifier") or app_name == "Tabletop Turkeyifier":
+                    print(props)
+                    if prod_ver is not None:
+                        if prod_ver < current_version:
+                            print_localized("deleting_old_ver")
+                            with open(filename, 'w'):
+                                pass
+                            os.remove(filename)
+                            return
+                    else:
+                        if filename[-9:-4] < current_version:
+                            print_localized("deleting_old_ver")
+                            with open(filename, 'w'):
+                                pass
+                            os.remove(filename)
+
     return
