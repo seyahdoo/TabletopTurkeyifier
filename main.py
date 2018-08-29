@@ -9,7 +9,7 @@ from proxify import Proxify
 from link import sym_link_already_downloaded_files
 from request_admin import admin_or_exit
 
-version = "1.3.6"
+version = "1.3.7"
 
 
 if __name__ == "__main__":
@@ -56,6 +56,7 @@ if __name__ == "__main__":
     admin_or_exit(__file__)
     sym_link_already_downloaded_files(p, root_path + "/Mods/Images/")
     sym_link_already_downloaded_files(p, root_path + "/Mods/Models/")
+    sym_link_already_downloaded_files(p, root_path + "/Mods/Assetbundles/")
 
     # DONE!
     print_localized("process_finished")
