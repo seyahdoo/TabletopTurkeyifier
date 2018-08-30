@@ -9,8 +9,8 @@ words = {
         'en': "Backing up intial data",
         'tr': "Orjinal dosyalar yedekleniyor"},
     "changing_url": {
-        'en': "Changing blocked url's inside Json mod files with proxy url's",
-        'tr': "Json mod dosyaları içindeki blocklanmış url'ler proxy'leriyle değiştiriliyor."},
+        'en': "Changing blocked url's inside Json mod files with proxy url's (This may take a while)",
+        'tr': "Json mod dosyaları içindeki blocklanmış url'ler proxy'leriyle değiştiriliyor (Bu biraz zaman alabilir)"},
     "fixing_links": {
         'en': "Fixing previously downloaded Image and Model cache names vith SymLinks",
         'tr': "Önceden indirilmiş Resimler ve Modellerin isimleri linklenerek düzeltiliyor"},
@@ -68,6 +68,9 @@ words = {
     "process_finished": {
         'en': "Process has been finished.",
         'tr': "İşlem tamamlandı."},
+    "reverting_old_version_proxies": {
+        'en': "Reverting old version proxies (This may take a while).",
+        'tr': "Eski versiyon proxy'ler orjinallerine döndürülüyor (Bu biraz zaman alabilir)."},
 
 }
 

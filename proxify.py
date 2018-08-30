@@ -126,6 +126,41 @@ class Proxify:
             f.write(s)
         return
 
+    def revert_proxify_mod_files_in_folder(self, folder_path):
+        # Replace blocked links with proxy links inside json files
+        # (without changing modify time so it wont change the order of mods inside game)
+        json_files = [pos_json for pos_json in os.listdir(folder_path) if pos_json.endswith('.json')]
+        for file_name in json_files:
+            file_path = folder_path + file_name
+            original_modify_time = os.path.getmtime(file_path)  # capture modify time
+            self.revert_proxify_file(file_path)
+            os.utime(file_path, (original_modify_time, original_modify_time))  # restore modify time
+
+        # recursively proxify sub folders
+        sub_folders = [f.path for f in os.scandir(folder_path) if f.is_dir()]
+        for sub_folder in sub_folders:
+            self.revert_proxify_mod_files_in_folder(sub_folder + "\\")
+
+        return
+
+    def revert_proxify_file(self, file_path):
+        s = None
+
+        with open(file_path, 'r', encoding='utf8', errors='ignore') as f:
+            s = f.read()
+
+        for original, proxy in self.proxy_history.items():
+            s = s.replace(proxy, original)
+
+        with open(file_path, 'w', encoding='utf8') as f:
+            f.write(s)
+        return
+
+    def reset_proxy_history(self, file_path):
+        self.proxy_history = {}
+        self.non_special_proxy_history = {}
+        os.remove(file_path)
+
     def save_proxy_history(self, file_path):
         print(get_localized_string("saving_proxy_history") + file_path)
         s = json.dumps(
