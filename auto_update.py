@@ -14,7 +14,7 @@ def update_app(current_version):
         r = requests.get('https://api.github.com/repos/seyahdoo/TabletopTurkeyifier/releases/latest')
     except requests.exceptions.RequestException as e:  # This is the correct syntax
         print_localized("problem_checking_new_version")
-        return
+        return False
 
     if r.ok:
         # parse json api data
@@ -38,7 +38,7 @@ def update_app(current_version):
                 exit(0)
             else:
                 print_localized("problem_downloading_new_ver")
-                return
+                return False
 
         else:
             # Delete old versions if exists in same folder
@@ -63,12 +63,14 @@ def update_app(current_version):
                             with open(filename, 'w'):
                                 pass
                             os.remove(filename)
-                            return
+                            return True
                     else:
                         if filename[-9:-4] < current_version:
                             print_localized("deleting_old_ver")
                             with open(filename, 'w'):
                                 pass
                             os.remove(filename)
+                            return True
 
-    return
+    return False
+
