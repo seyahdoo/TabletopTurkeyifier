@@ -9,9 +9,9 @@ class Proxify:
 
     def __init__(self):
         self.proxies = {
-            "https": "http",
-            "http://imgur.com": "http://filmot.org",
-            "http://i.imgur.com": "http://i.filmot.org",
+            "https:": "http:",
+            "http://imgur.com": "http://imgur.seyahdoo.com",
+            "http://i.imgur.com": "http://i.imgur.seyahdoo.com",
             "http://pastebin.com": "http://pastebin.seyahdoo.com",
             "http://cubeupload.com": "http://cubeupload.seyahdoo.com",
             "http://u.cubeupload.com": "http://u.cubeupload.seyahdoo.com"
