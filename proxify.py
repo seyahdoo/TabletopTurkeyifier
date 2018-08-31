@@ -87,70 +87,70 @@ class Proxify:
                 return "proxy"
             return "irrelevant"
 
-    def proxify_mod_files_in_folder(self, folder_path):
+    def proxify_mod_files_in_folder(self, folder_path, is_root, is_revert):
 
-        # Replace blocked links with proxy links inside json files
-        # (without changing modify time so it wont change the order of mods inside game)
-        json_files = [pos_json for pos_json in os.listdir(folder_path) if pos_json.endswith('.json')]
-        for file_name in json_files:
-            file_path = folder_path + file_name
-            original_modify_time = os.path.getmtime(file_path)  # capture modify time
-            self.proxify_file(file_path)
-            os.utime(file_path, (original_modify_time, original_modify_time))  # restore modify time
+        files_to_be_proxified = []
 
-        # recursively proxify sub folders
-        sub_folders = [f.path for f in os.scandir(folder_path) if f.is_dir()]
-        for sub_folder in sub_folders:
-            self.proxify_mod_files_in_folder(sub_folder + "\\")
+        if is_root:
 
-        return
+            files_to_be_proxified = self.proxify_mod_files_in_folder(folder_path, False, is_revert)
 
-    def proxify_file(self, file_path):
-        s = None
+            file_count = len(files_to_be_proxified)
+            cur_file = 0
+            if is_revert:
+                print_localized("reverting_old_version_proxies")
+            else:
+                print_localized("changing_url")
 
-        with open(file_path, 'r', encoding='utf8', errors='ignore') as f:
-            s = f.read()
+            for file in files_to_be_proxified:
+                original_modify_time = os.path.getmtime(file)  # capture modify time
 
-        proxiable_list = self.url_expression.findall(s)
-        if len(proxiable_list) > 0:
-            for r in proxiable_list:
-                sliced = r[0][1:-1]
-                self.calculate_proxy(sliced)
+                self.proxify_file(file,is_revert)
+
+                os.utime(file, (original_modify_time, original_modify_time))  # restore modify time
+
+                cur_file += 1
+                done = int(50 * cur_file / file_count)
+                sys.stdout.write("\r[%s%s]" % ('=' * done, ' ' * (50 - done)))
+                sys.stdout.flush()
+            print()
+
         else:
-            return
+            # Replace blocked links with proxy links inside json files
+            # (without changing modify time so it wont change the order of mods inside game)
+            json_files = [pos_json for pos_json in os.listdir(folder_path) if pos_json.endswith('.json')]
+            for file_name in json_files:
+                files_to_be_proxified.append(folder_path + file_name)
 
-        for original, proxy in self.proxy_history.items():
-            s = s.replace(original, proxy)
+            # recursively proxify sub folders
+            sub_folders = [f.path for f in os.scandir(folder_path) if f.is_dir()]
+            for sub_folder in sub_folders:
+                files_to_be_proxified += self.proxify_mod_files_in_folder(sub_folder + "\\", False, is_revert)
 
-        with open(file_path, 'w', encoding='utf8') as f:
-            f.write(s)
-        return
-
-    def revert_proxify_mod_files_in_folder(self, folder_path):
-        # Replace blocked links with proxy links inside json files
-        # (without changing modify time so it wont change the order of mods inside game)
-        json_files = [pos_json for pos_json in os.listdir(folder_path) if pos_json.endswith('.json')]
-        for file_name in json_files:
-            file_path = folder_path + file_name
-            original_modify_time = os.path.getmtime(file_path)  # capture modify time
-            self.revert_proxify_file(file_path)
-            os.utime(file_path, (original_modify_time, original_modify_time))  # restore modify time
-
-        # recursively proxify sub folders
-        sub_folders = [f.path for f in os.scandir(folder_path) if f.is_dir()]
-        for sub_folder in sub_folders:
-            self.revert_proxify_mod_files_in_folder(sub_folder + "\\")
+            return files_to_be_proxified
 
         return
 
-    def revert_proxify_file(self, file_path):
+    def proxify_file(self, file_path, is_revert):
         s = None
 
         with open(file_path, 'r', encoding='utf8', errors='ignore') as f:
             s = f.read()
 
+        if not is_revert:
+            proxiable_list = self.url_expression.findall(s)
+            if len(proxiable_list) > 0:
+                for r in proxiable_list:
+                    sliced = r[0][1:-1]
+                    self.calculate_proxy(sliced)
+            else:
+                return
+
         for original, proxy in self.proxy_history.items():
-            s = s.replace(proxy, original)
+            if not is_revert:
+                s = s.replace(original, proxy)
+            else:
+                s = s.replace(proxy, original)
 
         with open(file_path, 'w', encoding='utf8') as f:
             f.write(s)
