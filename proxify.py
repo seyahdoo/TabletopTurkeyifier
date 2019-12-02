@@ -28,7 +28,7 @@ class Proxify:
         self.proxy_history = {}
         self.non_special_proxy_history = {}
         self.url_expression = re.compile(
-            '(\"https?://((imgur\.com)|(i\.imgur\.com)|(pastebin\.com)|(cubeupload\.com)|(u\.cubeupload\.com))[^\s"]*\")')
+            '(\"https?://((imgur\.com)|(i\.imgur\.com)|(pastebin\.com))[^\s"]*\")')
 
 
     def calculate_proxy(self, original):

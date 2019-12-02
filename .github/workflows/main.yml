@@ -13,12 +13,12 @@ jobs:
       with:
         python-version: '3.x' # Version range or exact version of a Python version to use, using semvers version range syntax.
         architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
-    - name: Run a one-line script
-      run: echo Hello, world!
-    - name: Run a multi-line script
+    - name: Build Project
       run: |
         echo installing pyinstaller
         pip install pyinstaller
         echo building project
-        pyinstaller main.py
+        pyinstaller --onefile main.py
         echo uploading build
+        
+        
