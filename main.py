@@ -9,7 +9,7 @@ from proxify import Proxify
 from link import sym_link_already_downloaded_files
 from request_admin import admin_or_exit
 
-version = "1.4.0"
+version = "1.5.0"
 
 
 if __name__ == "__main__":
