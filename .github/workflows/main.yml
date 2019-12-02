@@ -16,7 +16,7 @@ jobs:
     - name: Build Project
       run: |
         echo installing pyinstaller
-        pip install pyinstaller
+        pip install https://github.com/pyinstaller/pyinstaller/archive/develop.tar.gz
         echo building project
         pyinstaller --onefile main.py
         echo uploading build
