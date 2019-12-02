@@ -10,11 +10,11 @@ class Proxify:
     def __init__(self):
         self.proxies = {
             "https:": "http:",
-            "http://imgur.com": "http://imgur.seyahdoo.com",
-            "http://i.imgur.com": "http://i.imgur.seyahdoo.com",
-            "http://pastebin.com": "http://pastebin.seyahdoo.com",
-            "http://cubeupload.com": "http://cubeupload.seyahdoo.com",
-            "http://u.cubeupload.com": "http://u.cubeupload.seyahdoo.com"
+            "http://imgur.com": "http://0imgur.com",
+            "http://i.imgur.com": "http://i.0imgurcom",
+            "http://pastebin.com": "http://pastebinp.com",
+            #"http://cubeupload.com": "http://cubeupload.com",
+            #"http://u.cubeupload.com": "http://u.cubeupload.com",
         }
 
         self.known_extensions = [
