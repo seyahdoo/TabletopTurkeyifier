@@ -15,7 +15,7 @@ jobs:
       run: |
         echo installing pyinstaller
         pip install https://github.com/pyinstaller/pyinstaller/archive/develop.tar.gz
-        @echo version = "$env:CI_COMMIT_SHA">version.py
+        echo version = "$env:CI_COMMIT_SHA">version.py
         echo building project
         python3 build.py
-        
+
