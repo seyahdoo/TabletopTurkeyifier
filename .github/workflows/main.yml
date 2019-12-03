@@ -18,7 +18,7 @@ jobs:
     - name: Install Pyinstaller
       run:  pip install pyinstaller
     - name: Write Version File
-      run: Set-Content -Path .\version.py -Value "version='$env:CI_COMMIT_SHA'"
+      run: Set-Content -Path .\version.py -Value "version='${{ github.sha }}'"
     - name: Call Build Script
       run: python.exe .\build.py
     - name: Create Release
