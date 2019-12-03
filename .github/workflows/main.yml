@@ -27,8 +27,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: v${{ CI_COMMIT_SHA }}
-        release_name: Tabletop Turkeyifier v${{ CI_COMMIT_SHA }}
+        tag_name: v${{ github.sha }}
+        release_name: Tabletop Turkeyifier v${{ github.sha }}
         draft: false
         prerelease: false
     - name: Upload Release Asset
