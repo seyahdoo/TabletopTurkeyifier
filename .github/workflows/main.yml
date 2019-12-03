@@ -18,5 +18,5 @@ jobs:
         pip install pyinstaller
         echo building project
         echo version = "$env:CI_COMMIT_SHA">version.py
-        python build.py
+        python.exe .\build.py
 
