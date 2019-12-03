@@ -18,6 +18,6 @@ jobs:
     - name: Installing Pyinstaller
       run:  pip install pyinstaller
     - name: Write Version File
-      run: echo version = "$env:CI_COMMIT_SHA">version.py
+      run: Set-Content -Path .\version.py -Value "version='$env:CI_COMMIT_SHA'"
     - name: Call Build Script
       run: python.exe .\build.py
