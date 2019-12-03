@@ -11,12 +11,11 @@ jobs:
       with:
         python-version: '3.7'
         architecture: 'x64'
-    - name: Build Project
-      run: |
-        echo installing required packages
-        pip install requests
-        pip install pyinstaller
-        echo building project
-        echo version = "$env:CI_COMMIT_SHA">version.py
-        python.exe .\build.py
-
+    - name: Installing Requests
+      run: pip install requests
+    - name: Installing Pyinstaller
+      run:  pip install pyinstaller
+    - name: Write Version File
+      run: echo version = "$env:CI_COMMIT_SHA">version.py
+    - name: Call Build Script
+      run: python.exe .\build.py
