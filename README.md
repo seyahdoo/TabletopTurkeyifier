@@ -8,3 +8,8 @@ Created by seyahdoo
 feel free to contact me from seyahdoo.com
 
 Distributing this without giving my name or for money is forbidden.
+
+# How to build
+- install python 3.x (latest working version was 3.8)
+- pip install pyinstaller
+- python3 build.py
