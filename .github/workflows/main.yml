@@ -11,11 +11,11 @@ jobs:
       with:
         python-version: '3.7'
         architecture: 'x64'
-    - name: Installing Pypiwin32
+    - name: Install Pypiwin32
       run: pip install pypiwin32
-    - name: Installing Requests
+    - name: Install Requests
       run: pip install requests
-    - name: Installing Pyinstaller
+    - name: Install Pyinstaller
       run:  pip install pyinstaller
     - name: Write Version File
       run: Set-Content -Path .\version.py -Value "version='$env:CI_COMMIT_SHA'"
