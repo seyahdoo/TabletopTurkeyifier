@@ -21,7 +21,7 @@ def update_app(current_version):
         latest_release = json.loads(r.text or r.content)
 
         # if there is a newer version or we are in production
-        if latest_release["tag_name"] is not current_version and current_version is not "development":
+        if latest_release["tag_name"] != current_version and current_version != "development":
             print_localized("updating")
 
             exec_name = None
