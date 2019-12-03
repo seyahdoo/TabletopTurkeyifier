@@ -1,15 +1,12 @@
 from sys import exit
-
 from localization import get_localized_string, print_localized
-from util import wait_enter_or_seconds
 from auto_update import update_app
 from path import get_mods_root_path
 from backup import do_backup_folder
 from proxify import Proxify
 from link import sym_link_already_downloaded_files
 from request_admin import admin_or_exit
-
-version = "1.5.0"
+from version import version
 
 
 if __name__ == "__main__":
@@ -18,15 +15,14 @@ if __name__ == "__main__":
     print("##########################################")
     print("##########################################")
     print("####                                  ####")
-    print("####    TABLETOP TURKEYIFIER v{}   ####".format(version))
+    print("####    TABLETOP TURKEYIFIER          ####")
     print("####                                  ####")
     print("####           created by seyahdoo    ####")
     print("####                                  ####")
     print("##########################################")
     print("##########################################")
     print()
-    print()
-
+    print("version = " + version)
 
     # Try to update self
     is_updated = update_app(version)
