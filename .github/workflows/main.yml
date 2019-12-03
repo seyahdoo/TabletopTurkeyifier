@@ -11,6 +11,8 @@ jobs:
       with:
         python-version: '3.7'
         architecture: 'x64'
+    - name: Installing Pypiwin32
+      run: pip install pypiwin32
     - name: Installing Requests
       run: pip install requests
     - name: Installing Pyinstaller
