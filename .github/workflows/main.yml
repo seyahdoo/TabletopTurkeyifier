@@ -13,7 +13,8 @@ jobs:
         architecture: 'x64'
     - name: Build Project
       run: |
-        echo installing pyinstaller
+        echo installing required packages
+        pip install requests
         pip install https://github.com/pyinstaller/pyinstaller/archive/develop.tar.gz
         echo version = "$env:CI_COMMIT_SHA">version.py
         echo building project
