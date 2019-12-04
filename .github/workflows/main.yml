@@ -33,24 +33,9 @@ jobs:
       run: pip install pyinstaller
     - name: Call Build Script
       run: python.exe .\build.py
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1.0.0
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        release_name: Tabletop Turkeyifier ${{ github.ref }}
-        tag_name: ${{ github.ref }}
-        draft: false
-        prerelease: false
-    - name: Upload Release Asset
-      id: upload-release-asset
-      uses: actions/upload-release-asset@v1.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./dist/tabletop-turkeyifier.exe
-        asset_name: tabletop-turkeyifier.exe
-        asset_content_type: application/exe
+    - uses: ncipollo/release-action@v1
+        with:
+          artifacts: "./dist/tabletop-turkeyifier.exe"
+          body: "Tabletop Turkeyifier"
+          token: ${{ secrets.GITHUB_TOKEN }}
 
