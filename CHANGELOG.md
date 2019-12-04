@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.1](https://github.com/seyahdoo/TabletopTurkeyifier/compare/v1.5.0...v1.5.1) (2019-12-04)
+
+
+### Bug Fixes
+
+* **ci:** semantic release python ([7b54d1e](https://github.com/seyahdoo/TabletopTurkeyifier/commit/7b54d1ec27b94a9540778727289401c6bb727180))
+
 ## 1.5.0 (2019-12-04)
 
 
