@@ -8,6 +8,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - uses: actions/setup-python@v1
+    - uses: actions/setup-node@v1
       with:
         python-version: '3.7'
         architecture: 'x64'
@@ -16,7 +17,11 @@ jobs:
     - name: Install Requests
       run: pip install requests
     - name: Install Pyinstaller
-      run:  pip install pyinstaller
+      run: pip install pyinstaller
+    - name: Install Semantic-Release
+      run: npm install --save-dev semantic-release
+    - name: Calculate Version Number
+      run: semantic-release pre --debug
     - name: Write Version File
       run: Set-Content -Path .\version.py -Value "version='v${{ github.sha }}'"
     - name: Call Build Script
