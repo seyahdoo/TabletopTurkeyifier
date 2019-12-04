@@ -23,5 +23,6 @@ jobs:
     - name: Git Status
       run: git status
     - name: Push Chores
-      run: git push --follow-tags origin master
-
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
