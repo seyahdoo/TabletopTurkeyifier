@@ -45,7 +45,6 @@ jobs:
 
     - name: Call Build Script
       id: build_script
-      outputs: version
       run: python.exe .\build.py
 
     - name: Create Release
@@ -54,7 +53,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        release_name: Tabletop Turkeyifier ${{ build_script.version }}
+        release_name: Tabletop Turkeyifier ${{ steps.build_script.outputs.version }}
         tag_name: ${{ build_script.version }}
         draft: false
         prerelease: false
