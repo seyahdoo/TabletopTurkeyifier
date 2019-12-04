@@ -17,6 +17,6 @@ jobs:
         git config --global user.email "ci@ci.com"
         git config --global user.name "Continuous Integration"
     - name: Calculate and Push Version Tag
-      run: standard-version.cmd
+      run: standard-version
     - name: Push Chores
       run: git push --follow-tags origin master
