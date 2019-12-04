@@ -16,7 +16,7 @@ os.system("pyinstaller --onefile main.py --version-file=\"tmp_build_properties.t
 
 os.remove("tmp_build_properties.txt")
 
-filename = "./dist/tabletop-turkeyifier.exe"
+filename = "./dist/tabletop-turkeyifier-{}.exe".format(version)
 
 if os.path.isfile(filename):
     os.remove(filename)
