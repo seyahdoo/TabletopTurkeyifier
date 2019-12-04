@@ -19,7 +19,7 @@ jobs:
     - name: Install Pyinstaller
       run: pip install pyinstaller
     - name: Install Semantic-Release
-      run: npm install --save-dev semantic-release
+      run: npx semantic-release
     - name: Calculate Version Number
       run: semantic-release pre --debug
     - name: Write Version File
