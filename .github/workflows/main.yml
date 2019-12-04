@@ -19,7 +19,7 @@ jobs:
     - name: Calculate and Push Version Tag
       run: standard-version
     - name: Git Status
-        run: git status
+      run: git status
     - name: Push Chores
       run: git push --follow-tags origin master
 
