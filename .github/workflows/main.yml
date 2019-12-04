@@ -34,8 +34,8 @@ jobs:
     - name: Call Build Script
       run: python.exe .\build.py
     - uses: ncipollo/release-action@v1
-        with:
-          artifacts: "./dist/tabletop-turkeyifier.exe"
-          body: "Tabletop Turkeyifier"
-          token: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        artifacts: "./dist/tabletop-turkeyifier.exe"
+        body: "Tabletop Turkeyifier"
+        token: ${{ secrets.GITHUB_TOKEN }}
 
