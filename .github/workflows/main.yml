@@ -3,7 +3,6 @@ name: Do Chores
 on:
   push:
     tags:
-    - ''
 
 jobs:
   build:
