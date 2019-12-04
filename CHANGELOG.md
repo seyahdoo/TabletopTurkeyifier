@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.7.9](https://github.com/seyahdoo/TabletopTurkeyifier/compare/v1.7.8...v1.7.9) (2019-12-04)
+
+
+### Bug Fixes
+
+* **test:** test ci ([87a0ff0](https://github.com/seyahdoo/TabletopTurkeyifier/commit/87a0ff0d1674e11dfb6e92d48a4964ef9f54da05))
+
 ### [1.7.8](https://github.com/seyahdoo/TabletopTurkeyifier/compare/v1.7.7...v1.7.8) (2019-12-04)
 
 ### [1.7.7](https://github.com/seyahdoo/TabletopTurkeyifier/compare/v1.7.6...v1.7.7) (2019-12-04)
