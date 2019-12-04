@@ -14,9 +14,10 @@ jobs:
       run: npm install --global standard-version
     - name: Configure Git
       run: |
-        git remote set-url origin https://x-access-token:$GITHUB_TOKEN@github.com/username/repository
         git config --global user.email "ci@ci.com"
         git config --global user.name "Continuous Integration"
+    - name: Reattach HEAD
+      run: git checkout "$(echo ${{ github.ref }} | sed -E 's|refs/[a-zA-Z]+/||')"
     - name: Calculate and Push Version Tag
       run: standard-version
     - name: Git Status
