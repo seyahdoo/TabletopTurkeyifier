@@ -1,4 +1,4 @@
-from main import version
+from version import version
 import os
 
 s = ""
