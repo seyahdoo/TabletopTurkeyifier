@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.4](https://github.com/seyahdoo/TabletopTurkeyifier/compare/v1.5.3...v1.5.4) (2019-12-04)
+
+
+### Bug Fixes
+
+* **build.py:** changed output exe name ([bccc160](https://github.com/seyahdoo/TabletopTurkeyifier/commit/bccc160d73464745de76c89144123f656ac92915))
+* **ci:** ci fixed? ([140155c](https://github.com/seyahdoo/TabletopTurkeyifier/commit/140155cd8d4f1988c51c65a5121bef7e004f2279))
+* **test:** test ([004c3eb](https://github.com/seyahdoo/TabletopTurkeyifier/commit/004c3ebdffa9088c743fe6f8045c6431ad1ad2f1))
+
 ### [1.5.3](https://github.com/seyahdoo/TabletopTurkeyifier/compare/v1.5.2...v1.5.3) (2019-12-04)
 
 ### [1.5.2](https://github.com/seyahdoo/TabletopTurkeyifier/compare/v1.5.1...v1.5.2) (2019-12-04)
