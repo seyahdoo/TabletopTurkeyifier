@@ -15,9 +15,11 @@ jobs:
         architecture: 'x64'
     - name: Install Semantic Release Tool
       run: npm install --global standard-version
-    - name: Calculate and Push Version Tag
+    - name: Configure Git
       run: |
         git config --global user.email "ci@ci.com"
         git config --global user.name "Continuous Integration"
-        standard-version.cmd
-        git push --follow-tags origin master
+    - name: Calculate and Push Version Tag
+      run: standard-version.cmd
+    - name: Push Chores
+      run: git push --follow-tags origin master
