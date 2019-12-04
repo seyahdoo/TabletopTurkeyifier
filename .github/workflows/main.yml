@@ -39,7 +39,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        release_name: Tabletop Turkeyifier
+        release_name: Tabletop Turkeyifier ${{ github.ref }}
+        tag_name: ${{ github.ref }}
         draft: false
         prerelease: false
     - name: Upload Release Asset
