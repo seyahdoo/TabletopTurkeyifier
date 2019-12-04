@@ -40,9 +40,6 @@ jobs:
     - name: Install Pyinstaller
       run: pip install pyinstaller
 
-    - name: Install PyGithub
-      run: pip install PyGithub
-
     - name: Call Build Script
       id: build_script
       run: python.exe .\build.py

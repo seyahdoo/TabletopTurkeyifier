@@ -1,6 +1,5 @@
 import os
 import subprocess
-from github import Github
 
 cmd = subprocess.run(["git", "describe", "--abbrev=0"], stdout=subprocess.PIPE)
 version: str = cmd.stdout.decode("utf-8")
@@ -26,29 +25,4 @@ filename = "./dist/tabletop-turkeyifier.exe"
 if os.path.isfile(filename):
     os.remove(filename)
 os.rename("./dist/main.exe", filename)
-
-
-
-# GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
-# g = Github(GITHUB_TOKEN)
-#
-# cmd = subprocess.run(["git", "config", "--get", "remote.origin.url"], stdout=subprocess.PIPE)
-# repo_url: str = cmd.stdout.decode("utf-8")
-# repo_url = repo_url.strip()
-# print(repo_url)
-#
-# repo = g.get_repo(repo_url)
-#
-# release = repo.create_git_release(
-#     version,
-#     "Tabletop Turkeyifier {}".format(version),
-#     "Tabletop Turkeyifier {}".format(version))
-
-
-
-
-
-
-
-
 
