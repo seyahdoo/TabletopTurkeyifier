@@ -6,10 +6,14 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
     - uses: actions/checkout@v1
+    - uses: actions/setup-python@v1
     - uses: actions/setup-node@v1
+      with:
+        python-version: '3.7'
+        architecture: 'x64'
     - name: Install Semantic Release Tool
       run: npm install --global standard-version
     - name: Configure Git
@@ -24,3 +28,36 @@ jobs:
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Install Pypiwin32
+      run: pip install pypiwin32
+    - name: Install Requests
+      run: pip install requests
+    - name: Install Pyinstaller
+      run: pip install pyinstaller
+    - name: Write Version File
+      run: |
+        Set-Content -Path .\version.py -Value "version='"
+        git describe --abbrev=0 | Out-File -FilePath .\version.py -Append -NoNewline -Encoding ASCII
+        Add-Content -Path .\version.py -Value "'"
+    - name: Call Build Script
+      run: python.exe .\build.py
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1.0.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        release_name: Tabletop Turkeyifier}
+        draft: false
+        prerelease: false
+    - name: Upload Release Asset
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./dist/tabletop-turkeyifier.exe
+        asset_name: tabletop-turkeyifier-${{ github.ref }}.exe
+        asset_content_type: application/exe
+
