@@ -7,11 +7,10 @@ jobs:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v1
-    - uses: actions/setup-python@v1
     - uses: actions/setup-node@v1
+    - uses: actions/setup-python@v1
       with:
-        python-version: '3.7'
-        architecture: 'x64'
+        python-version: '3.7.3'
     - name: Install Semantic Release Tool
       run: npm install --global standard-version
     - name: Configure Git
