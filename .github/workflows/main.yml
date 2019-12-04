@@ -20,8 +20,6 @@ jobs:
       run: git checkout "$(echo ${{ github.ref }} | sed -E 's|refs/[a-zA-Z]+/||')"
     - name: Calculate and Push Version Tag
       run: standard-version
-    - name: Git Status
-      run: git status
     - name: Push Chores
       uses: ad-m/github-push-action@master
       with:

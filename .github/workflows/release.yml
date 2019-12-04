@@ -3,7 +3,7 @@ name: Release On Version Tag
 on:
   push:
     tags:
-    - '*'
+    - 'v*'
 
 jobs:
   build:
