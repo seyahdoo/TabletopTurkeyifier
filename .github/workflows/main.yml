@@ -32,12 +32,6 @@ jobs:
       run: pip install requests
     - name: Install Pyinstaller
       run: pip install pyinstaller
-    - name: Write Version File 1
-      run: Set-Content -Path .\version.py -Value "version='"
-    - name: Write Version File 2
-      run: git describe --abbrev=0 | Out-File -FilePath .\version.py -Append -NoNewline -Encoding ASCII
-    - name: Write Version File 3
-      run: Add-Content -Path .\version.py -Value "'"
     - name: Call Build Script
       run: python.exe .\build.py
     - name: Create Release
