@@ -47,7 +47,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        release_name: Tabletop Turkeyifier}
+        release_name: Tabletop Turkeyifier
         draft: false
         prerelease: false
     - name: Upload Release Asset
@@ -58,6 +58,6 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./dist/tabletop-turkeyifier.exe
-        asset_name: tabletop-turkeyifier-${{ github.ref }}.exe
+        asset_name: tabletop-turkeyifier.exe
         asset_content_type: application/exe
 
