@@ -1,8 +1,6 @@
-name: Do Chores
+name: Do Release
 
-on:
-  push:
-    tags:
+on: [push]
 
 jobs:
   build:
