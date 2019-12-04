@@ -14,11 +14,10 @@ jobs:
       with:
         python-version: '3.7'
         architecture: 'x64'
+        github_token: ${{ secrets.GITHUB_TOKEN }}
     - name: Install Semantic Release Tool
       run: npm install --global standard-version
     - name: Calculate and Push Version Tag
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
       run: |
         git config --global user.email "ci@ci.com"
         git config --global user.name "Continuous Integration"
