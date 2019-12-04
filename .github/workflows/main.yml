@@ -18,5 +18,7 @@ jobs:
         git config --global user.name "Continuous Integration"
     - name: Calculate and Push Version Tag
       run: standard-version
-    - name: Push Chores
-      run: git push --follow-tags origin master
+    - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
