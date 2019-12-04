@@ -1,6 +1,9 @@
 name: Auto Release
 
-on: [push]
+on:
+  push:
+    tags:
+    - ''
 
 jobs:
   build:
@@ -12,37 +15,9 @@ jobs:
       with:
         python-version: '3.7'
         architecture: 'x64'
-    - name: Install Pypiwin32
-      run: pip install pypiwin32
-    - name: Install Requests
-      run: pip install requests
-    - name: Install Pyinstaller
-      run: pip install pyinstaller
     - name: Install Semantic Release Tool
       run: npm install --global standard-version
     - name: Calculate Version Number
-      run: standard-version.cmd --dry-run
-    - name: Write Version File
-      run: Set-Content -Path .\version.py -Value "version='v${{ github.sha }}'"
-    - name: Call Build Script
-      run: python.exe .\build.py
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1.0.0
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: v${{ github.sha }}
-        release_name: Tabletop Turkeyifier v${{ github.sha }}
-        draft: false
-        prerelease: false
-    - name: Upload Release Asset
-      id: upload-release-asset
-      uses: actions/upload-release-asset@v1.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./dist/tabletop-turkeyifier.exe
-        asset_name: tabletop-turkeyifier.exe
-        asset_content_type: application/exe
+      run: standard-version.cmd
+    - name: Push Chores
+      run: git push --follow-tags origin master
