@@ -18,9 +18,6 @@ with open("tmp_build_properties.txt", 'w', encoding='utf8') as f:
     f.write(properties_file_content)
 
 os.system("pyinstaller --onefile main.py --version-file=\"tmp_build_properties.txt\"")
-
-os.remove("tmp_build_properties.txt")
-
 filename = "./dist/tabletop-turkeyifier.exe"
 if os.path.isfile(filename):
     os.remove(filename)
@@ -28,8 +25,10 @@ os.rename("./dist/main.exe", filename)
 
 
 os.system("pyinstaller --onefile updater.py --version-file=\"tmp_build_properties.txt\"")
-
 filename = "./dist/tabletop-turkeyifier-updater.exe"
 if os.path.isfile(filename):
     os.remove(filename)
 os.rename("./dist/main.exe", filename)
+
+os.remove("tmp_build_properties.txt")
+
