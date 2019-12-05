@@ -7,6 +7,27 @@ from util import download_with_progress, get_file_properties
 from localization import print_localized
 
 
+
+def is_update_ready(current_version):
+    # get latest version from github api
+    try:
+        r = requests.get('https://api.github.com/repos/seyahdoo/TabletopTurkeyifier/releases/latest')
+    except requests.exceptions.RequestException as e:  # This is the correct syntax
+        print_localized("problem_checking_new_version")
+        return False
+
+    if r.ok:
+        # parse json api data
+        latest_release = json.loads(r.text or r.content)
+
+        # if there is a newer version or we are in production
+        if latest_release["tag_name"] != current_version and current_version != "development":
+            print_localized("updating")
+            return True
+
+    return False
+
+
 def update_app(current_version):
 
     # get latest version from github api

@@ -1,11 +1,11 @@
 from sys import exit
 from localization import get_localized_string, print_localized
-from auto_update import update_app
 from path import get_mods_root_path
 from backup import do_backup_folder
 from proxify import Proxify
 from link import sym_link_already_downloaded_files
 from request_admin import admin_or_exit
+from updater import update_app
 from version import version
 
 
@@ -25,7 +25,7 @@ if __name__ == "__main__":
     print("version = " + version)
 
     # Try to update self
-    is_updated = update_app(version)
+    update_app()
 
     # Getting root mods path
     print_localized("find_root")
@@ -52,11 +52,11 @@ if __name__ == "__main__":
     # Proxying json mod files
     p.load_proxy_history(root_path + "/TurkeyifierHistory.json")
 
-    # if updated, revert old proxies
-    if is_updated:
-        p.proxify_mod_files_in_folder_list(mods_list, True)
-        p.reset_proxy_history(root_path + "/TurkeyifierHistory.json")
+    # Revert old proxies
+    p.proxify_mod_files_in_folder_list(mods_list, True)
+    p.reset_proxy_history(root_path + "/TurkeyifierHistory.json")
 
+    # Do proxy calculations and save
     p.proxify_mod_files_in_folder_list(mods_list, False)
     p.save_proxy_history(root_path + "/TurkeyifierHistory.json")
 
