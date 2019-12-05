@@ -28,7 +28,7 @@ os.system("pyinstaller --onefile updater.py --version-file=\"tmp_build_propertie
 filename = "./dist/tabletop-turkeyifier-updater.exe"
 if os.path.isfile(filename):
     os.remove(filename)
-os.rename("./dist/main.exe", filename)
+os.rename("./dist/updater.exe", filename)
 
 os.remove("tmp_build_properties.txt")
 
