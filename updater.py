@@ -48,6 +48,7 @@ def update_app():
                 with open(filename, 'w'):
                     pass
                 os.remove(filename)
+                return True
 
     release = get_latest_release()
 
@@ -70,7 +71,7 @@ def update_app():
             exit(0)
         else:
             print_localized("problem_downloading_new_ver")
-    return
+    return False
 
 
 if __name__ == "__main__":

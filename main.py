@@ -25,7 +25,7 @@ if __name__ == "__main__":
     print("version = " + version)
 
     # Try to update self
-    update_app()
+    just_updated = update_app()
 
     # Getting root mods path
     print_localized("find_root")
@@ -52,9 +52,10 @@ if __name__ == "__main__":
     # Proxying json mod files
     p.load_proxy_history(root_path + "/TurkeyifierHistory.json")
 
-    # Revert old proxies
-    p.proxify_mod_files_in_folder_list(mods_list, True)
-    p.reset_proxy_history(root_path + "/TurkeyifierHistory.json")
+    if just_updated:
+        # Revert old proxies
+        p.proxify_mod_files_in_folder_list(mods_list, True)
+        p.reset_proxy_history(root_path + "/TurkeyifierHistory.json")
 
     # Do proxy calculations and save
     p.proxify_mod_files_in_folder_list(mods_list, False)
