@@ -32,6 +32,23 @@ def get_latest_release():
 
 def update_app():
 
+    # delete old updater if there is any
+    for filename in os.listdir():
+        props = get_file_properties(filename)
+        app_name = None
+        try:
+            app_name = props["StringFileInfo"]["ProductName"]
+        except:
+            pass
+
+        if app_name == "Tabletop Turkeyifier":
+            if filename == "tabletop-turkeyifier-updater.exe":
+                print_localized("deleting_updater")
+                # wait for updater to close
+                with open(filename, 'w'):
+                    pass
+                os.remove(filename)
+
     release = get_latest_release()
 
     # if there is a newer version or we are in production
@@ -48,12 +65,11 @@ def update_app():
 
         # start new version and exit program
         if exec_name is not None:
-            print_localized("starting_new_version")
+            print_localized("starting_updater")
             os.startfile(exec_name)
             exit(0)
         else:
             print_localized("problem_downloading_new_ver")
-            return False
     return
 
 
@@ -78,6 +94,7 @@ if __name__ == "__main__":
             if prod_ver is not None:
                 if prod_ver < version:
                     print_localized("deleting_old_ver")
+                    # wait for old version to close
                     with open(filename, 'w'):
                         pass
                     os.remove(filename)

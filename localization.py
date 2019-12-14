@@ -23,9 +23,15 @@ words = {
     "updating": {
         'en': "A newer version is detected, updating...",
         'tr': "Yeni versiyon keşfedildi, güncelleniyor..."},
+    "starting_updater": {
+        'en': "Updater has been downloaded, updater is starting...",
+        'tr': "Güncelleyici indirildi, güncelleyici çalıştırılıyor..."},
     "starting_new_version": {
         'en': "Starting updated version",
         'tr': "Güncel versiyon başlatılıyor"},
+    "deleting_updater": {
+        'en': "Deleting Updater...",
+        'tr': "Güncelleyici Siliniyor..."},
     "no_folder": {
         'en': "No folder selected, exiting program.",
         'tr': "Klasör seçilmediği tespit edildi, programdan çıkılıyor."},
