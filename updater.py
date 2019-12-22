@@ -60,7 +60,7 @@ def update_app():
         exec_name = None
         # download all it's assets
         for asset in release["assets"]:
-            if asset["name"] is "tabletop-turkeyifier-updater.exe":
+            if asset["name"] == "tabletop-turkeyifier-updater.exe":
                 download_with_progress(asset["browser_download_url"], asset["name"])
                 exec_name = asset["name"]
 
