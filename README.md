@@ -9,6 +9,12 @@ feel free to contact me from seyahdoo.com
 
 Distributing this without referencing this repository or distributing this for money is forbidden.
 
+---
+
+# [Download](https://gitreleases.dev/gh/seyahdoo/TabletopTurkeyifier/latest/tabletop-turkeyifier.exe)
+
+---
+
 # How to build
 - install python 3.x (latest working version was 3.8)
 - pip install pypiwin32
