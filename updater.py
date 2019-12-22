@@ -106,7 +106,7 @@ if __name__ == "__main__":
     exec_name = None
     # download executable
     for asset in release["assets"]:
-        if asset["name"] is "tabletop-turkeyifier.exe":
+        if asset["name"] == "tabletop-turkeyifier.exe":
             download_with_progress(asset["browser_download_url"], asset["name"])
             exec_name = asset["name"]
 
