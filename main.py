@@ -33,13 +33,18 @@ if __name__ == "__main__":
 
     mods_list = [
         root_path + "/Mods/Workshop/",
-        root_path + "/Saves/"
+        root_path + "/Saves/",
     ]
 
     asset_folder_list = [
+        root_path + "/Mods/Assetbundles/",
+        root_path + "/Mods/Audio/",
         root_path + "/Mods/Images/",
+        root_path + "/Mods/Images Raw/",
         root_path + "/Mods/Models/",
-        root_path + "/Mods/Assetbundles/"
+        root_path + "/Mods/Models Raw/",
+        root_path + "/Mods/PDF/",
+        root_path + "/Mods/Text/",
     ]
 
     # Backing up intial data
