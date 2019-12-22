@@ -12,7 +12,7 @@ class Proxify:
         self.proxies = {
             "https:": "http:",
             "http://imgur.com": "http://0imgur.com",
-            "http://i.imgur.com": "http://i.0imgurcom",
+            "http://i.imgur.com": "http://i.0imgur.com",
             "http://pastebin.com": "http://pastebinp.com",
         }
 
