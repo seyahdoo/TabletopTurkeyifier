@@ -36,6 +36,9 @@ jobs:
 
     - name: Install Requests
       run: pip install requests
+      
+    - name: Install VDF
+      run: pip install vdf
 
     - name: Install Pyinstaller
       run: pip install pyinstaller
