@@ -5,7 +5,8 @@ from localization import get_localized_string
 
 
 def do_backup_folder(file_path):
-    if not os.path.isdir(file_path + "BACKUP"):
-        print(get_localized_string("no_backup_found") + file_path + "BACKUP")
-        shutil.copytree(file_path, file_path + "BACKUP")
+    backup_path = os.path.join(file_path, "BACKUP")
+    if not os.path.isdir(backup_path):
+        print(get_localized_string("no_backup_found") + backup_path)
+        shutil.copytree(file_path, backup_path)
     return
