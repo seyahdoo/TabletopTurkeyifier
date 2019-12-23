@@ -123,12 +123,12 @@ class Proxify:
         # (without changing modify time so it wont change the order of mods inside game)
         json_files = [pos_json for pos_json in os.listdir(folder_path) if pos_json.endswith('.json')]
         for file_name in json_files:
-            files_to_be_proxified.append(folder_path + file_name)
+            files_to_be_proxified.append(os.path.join(folder_path, file_name))
 
         # recursively proxify sub folders
         sub_folders = [f.path for f in os.scandir(folder_path) if f.is_dir()]
         for sub_folder in sub_folders:
-            files_to_be_proxified += self.proxify_mod_files_in_folder(sub_folder + "\\", is_revert)
+            files_to_be_proxified += self.proxify_mod_files_in_folder(sub_folder, is_revert)
 
         return files_to_be_proxified
 
