@@ -1,3 +1,4 @@
+import os
 from sys import exit
 from localization import get_localized_string, print_localized
 from path import get_paths, get_documents_root
@@ -38,7 +39,7 @@ if __name__ == "__main__":
 
     p = Proxify()
 
-    history_location = "{}\\TurkeyifierHistory.json".format(get_documents_root())
+    history_location = os.path.join(get_documents_root(), "TurkeyifierHistory.json")
 
     # Proxying json mod files
     p.load_proxy_history(history_location)
