@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.7.31](https://github.com/seyahdoo/TabletopTurkeyifier/compare/v1.7.30...v1.7.31) (2019-12-23)
+
+
+### Bug Fixes
+
+* **backup:** backup folder fix ([343f042](https://github.com/seyahdoo/TabletopTurkeyifier/commit/343f042e11fd55d3e00b4713f2f5158d9b7bcd59))
+
 ### [1.7.30](https://github.com/seyahdoo/TabletopTurkeyifier/compare/v1.7.29...v1.7.30) (2019-12-23)
 
 
