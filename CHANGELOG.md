@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.7.32](https://github.com/seyahdoo/TabletopTurkeyifier/compare/v1.7.31...v1.7.32) (2020-03-30)
+
+
+### Bug Fixes
+
+* **proxify:** turkey lifted imgur ban, so it wont be proxified anymore ([ee53df0](https://github.com/seyahdoo/TabletopTurkeyifier/commit/ee53df0671c5af837a19e9cb2677f82116408fd5))
+
 ### [1.7.31](https://github.com/seyahdoo/TabletopTurkeyifier/compare/v1.7.30...v1.7.31) (2019-12-23)
 
 
