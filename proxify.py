@@ -8,10 +8,12 @@ from localization import get_localized_string, print_localized
 class Proxify:
 
     def __init__(self):
-        # cubeupload and imgur was banned too but they seem to be unbanned
+        # cubeupload was banned too but they seem to be unbanned
         self.proxies = {
             "https:": "http:",
             "http://pastebin.com": "http://pastebinp.com",
+            "http://imgur.com": "http://0imgur.com",
+            "http://i.imgur.com": "http://i.0imgur.com",
         }
 
         self.known_extensions = [
