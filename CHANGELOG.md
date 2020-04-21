@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.7.34](https://github.com/seyahdoo/TabletopTurkeyifier/compare/v1.7.33...v1.7.34) (2020-04-21)
+
+
+### Bug Fixes
+
+* **link.py:** fixed linking error ([4e38b9b](https://github.com/seyahdoo/TabletopTurkeyifier/commit/4e38b9bd8f76ff278b4b1a822e4988a43fdbe866))
+
 ### [1.7.33](https://github.com/seyahdoo/TabletopTurkeyifier/compare/v1.7.32...v1.7.33) (2020-04-21)
 
 
