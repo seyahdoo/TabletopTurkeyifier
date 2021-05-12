@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.7.35](https://github.com/seyahdoo/TabletopTurkeyifier/compare/v1.7.34...v1.7.35) (2021-05-12)
+
+
+### Bug Fixes
+
+* **proxify:** raw php links not working fixed, thanks to yigit-alp ([d7a320c](https://github.com/seyahdoo/TabletopTurkeyifier/commit/d7a320c0c5e83896d89af9c1cafcfd83e3f84698))
+
 ### [1.7.34](https://github.com/seyahdoo/TabletopTurkeyifier/compare/v1.7.33...v1.7.34) (2020-04-21)
 
 
