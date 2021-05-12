@@ -21,3 +21,6 @@ Or you can contact me through my public discord server https://discord.gg/ZtDFmj
 - pip install requests
 - pip install pyinstaller
 - pyinstaller --onefile main.py
+
+# Credits
+- thanks [yigit-alp](https://github.com/yigit-alp) for pointing out the pastebin raw.php issue
