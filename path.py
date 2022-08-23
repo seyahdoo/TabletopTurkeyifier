@@ -76,7 +76,8 @@ def find_steam_app_install_path(app_id):
     i = 1
     while True:
         try:
-            folder_path = lf[str(i)]
+            entry = lf[str(i)]
+            folder_path = entry["path"]
             library_folders.append(folder_path)
             i += 1
         except:
