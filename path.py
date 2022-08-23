@@ -71,7 +71,7 @@ def find_steam_app_install_path(app_id):
     library_folders = [steam_path]
     library_dict_path = os.path.join(steam_path, "steamapps", "libraryfolders.vdf")
     v = vdf.load(open(library_dict_path))
-    lf = v["LibraryFolders"]
+    lf = v["libraryfolders"]
 
     i = 1
     while True:

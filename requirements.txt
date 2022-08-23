@@ -1,0 +1,4 @@
+﻿pypiwin32
+requests
+vdf
+pyinstaller
