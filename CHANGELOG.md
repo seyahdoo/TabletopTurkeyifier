@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.8.0](https://github.com/seyahdoo/TabletopTurkeyifier/compare/v1.7.40...v1.8.0) (2022-08-23)
+
+
+### Features
+
+* **proxify:** add cjc file support ([403e299](https://github.com/seyahdoo/TabletopTurkeyifier/commit/403e29995ee4c6e7144a65abd9ed5601978bdcbe))
+
 ### [1.7.40](https://github.com/seyahdoo/TabletopTurkeyifier/compare/v1.7.39...v1.7.40) (2022-08-23)
 
 
