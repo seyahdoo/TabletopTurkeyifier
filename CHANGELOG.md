@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.7.40](https://github.com/seyahdoo/TabletopTurkeyifier/compare/v1.7.39...v1.7.40) (2022-08-23)
+
+
+### Bug Fixes
+
+* **proxify:** 0imgur.com is down so changing the imgur proxy to imgurp ([9e8cbde](https://github.com/seyahdoo/TabletopTurkeyifier/commit/9e8cbde057c2687c7a03a56ac4bc5c21d8ab8717))
+
 ### [1.7.39](https://github.com/seyahdoo/TabletopTurkeyifier/compare/v1.7.38...v1.7.39) (2022-08-23)
 
 
