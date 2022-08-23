@@ -119,10 +119,10 @@ class Proxify:
 
         files_to_be_proxified = []
 
-        # Replace blocked links with proxy links inside json files
+        # Replace blocked links with proxy links inside json and cjc files
         # (without changing modify time so it wont change the order of mods inside game)
-        json_files = [pos_json for pos_json in os.listdir(folder_path) if pos_json.endswith('.json')]
-        for file_name in json_files:
+        files = [pos_json for pos_json in os.listdir(folder_path) if pos_json.endswith('.json') or pos_json.endswith('.cjc')]
+        for file_name in files:
             files_to_be_proxified.append(os.path.join(folder_path, file_name))
 
         # recursively proxify sub folders
