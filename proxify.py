@@ -12,8 +12,8 @@ class Proxify:
             "https:": "http:",
             "http://pastebin.com/raw.php?i=": "http://pastebinp.com/raw/",
             "http://pastebin.com/raw/": "http://pastebinp.com/raw/",
-            "http://imgur.com": "http://0imgur.com",
-            "http://i.imgur.com": "http://i.0imgur.com",
+            "http://imgur.com": "http://imgurp.com",
+            "http://i.imgur.com": "http://i.imgurp.com",
         }
 
         self.known_extensions = [
