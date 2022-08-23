@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.7.39](https://github.com/seyahdoo/TabletopTurkeyifier/compare/v1.7.38...v1.7.39) (2022-08-23)
+
+
+### Bug Fixes
+
+* **path:** steam changed library folders format 2 ([a07e539](https://github.com/seyahdoo/TabletopTurkeyifier/commit/a07e5397c2d95c7495fc8cd8a2bf46cbec3aa3ed))
+
 ### [1.7.38](https://github.com/seyahdoo/TabletopTurkeyifier/compare/v1.7.37...v1.7.38) (2022-08-23)
 
 
