@@ -9,11 +9,8 @@ class Proxify:
 
     def __init__(self):
         self.proxies = {
-            "https:": "http:",
-            "http://pastebin.com/raw.php?i=": "http://pastebinp.com/raw/",
-            "http://pastebin.com/raw/": "http://pastebinp.com/raw/",
-            "http://imgur.com": "http://imgurp.com",
-            "http://i.imgur.com": "http://i.imgurp.com",
+            "http://pastebin.com/": "http://pastebinp.com/",
+            "https://pastebin.com/": "https://pastebinp.com/",
         }
 
         self.known_extensions = [
@@ -27,7 +24,7 @@ class Proxify:
         self.proxy_history = {}
         self.non_special_proxy_history = {}
         self.url_expression = re.compile(
-            '(\"https?://((imgur\.com)|(i\.imgur\.com)|(pastebin\.com))[^\s"]*\")')
+            '(\"https?://(pastebin\.com)[^\s"]*\")')
 
 
     def calculate_proxy(self, original):
