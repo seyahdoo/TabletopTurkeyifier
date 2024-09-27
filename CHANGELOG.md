@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.2](https://github.com/seyahdoo/TabletopTurkeyifier/compare/v1.8.1...v1.8.2) (2024-09-27)
+
 ### [1.8.1](https://github.com/seyahdoo/TabletopTurkeyifier/compare/v1.8.0...v1.8.1) (2024-09-26)
 
 ## [1.8.0](https://github.com/seyahdoo/TabletopTurkeyifier/compare/v1.7.40...v1.8.0) (2022-08-23)
